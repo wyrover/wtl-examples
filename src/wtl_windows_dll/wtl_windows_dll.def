@@ -1,0 +1,4 @@
+LIBRARY	"wtl_windows_dll"
+EXPORTS
+	init_maindlg
+	
