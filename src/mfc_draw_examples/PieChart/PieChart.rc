@@ -1,0 +1,255 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\PieChart.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\PieChart.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About PieChart"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "PieChart Version 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2009",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,16,WS_GROUP
+END
+
+IDD_PIECHART_DIALOG DIALOGEX 0, 0, 669, 480
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CLIPCHILDREN | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "PieChart"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_ITEM,38,0,57,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LABEL,38,17,57,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_VALUE,38,34,57,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Color",ID_COLORITEM,2,53,50,14
+    PUSHBUTTON      "Add",ID_ADD,2,72,50,14
+    EDITTEXT        IDC_LBUPD,38,100,57,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Update",IDC_UPDLABEL,99,100,50,14
+    EDITTEXT        IDC_VALUPD,38,117,57,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Update",IDC_UPDVALUE,99,117,50,14
+    PUSHBUTTON      "Color",ID_COLORITEM2,2,137,50,14
+    PUSHBUTTON      "Update",IDC_UPDCOLOR,99,136,50,14
+    COMBOBOX        IDC_GRLIGHT,3,169,48,15,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_GRDARK,3,195,48,13,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COLOR,3,270,68,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Color",IDC_COLORSET,104,269,50,14
+    COMBOBOX        IDC_FONT,3,293,68,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "set font",IDC_FONTSET,104,291,50,14
+    EDITTEXT        IDC_TITLE,3,316,66,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Set",IDC_TITLESET,104,317,50,14
+    COMBOBOX        IDC_STYLE,84,335,70,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_SORT,84,350,70,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Save",IDC_SAVE,104,368,50,14
+    LTEXT           "Set colors",IDC_STATIC,3,261,70,8
+    LTEXT           "Item",IDC_STATIC,3,3,22,8
+    LTEXT           "Label",IDC_STATIC,3,21,23,8
+    LTEXT           "Value",IDC_STATIC,3,38,24,8
+    LTEXT           "Label",IDC_STATIC,9,103,27,8
+    LTEXT           "Value",IDC_STATIC,9,121,28,8
+    CONTROL         "",IDC_SLIDER1,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,54,169,100,15
+    CONTROL         "",IDC_SLIDER2,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,54,193,100,15
+    CONTROL         "",IDC_SLIDER3,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,0,221,100,15
+    CONTROL         "",IDC_SLIDER4,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,0,245,100,15
+    LTEXT           "Adjust gradient L",IDC_STATIC,4,158,57,8
+    LTEXT           "Adjust gradient D",IDC_STATIC,4,185,70,8
+    LTEXT           "Adjust starting angle",IDC_STATIC,8,212,70,8
+    LTEXT           "Adjust incline angle (3-D)",IDC_STATIC,8,237,87,8
+    LTEXT           "Click on an Item to remove/update",IDC_STATIC,3,86,111,8
+    LTEXT           "Pick style",IDC_STATIC,3,336,37,8
+    LTEXT           "Sort Item",IDC_STATIC,3,349,37,8
+    LTEXT           "Set fonts",IDC_STATIC,3,284,70,8
+    LTEXT           "Pie chart title",IDC_STATIC,3,307,45,8
+    LTEXT           "Save chart",IDC_STATIC,3,370,36,8
+    EDITTEXT        IDC_HEIGHT,2,393,66,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "Set",ID_HEIGHTSET,104,393,50,14
+    LTEXT           "Height (3-D)",IDC_STATIC,3,382,45,8
+    PUSHBUTTON      "Remove",IDC_REMOVE,99,153,50,14
+    COMBOBOX        IDC_ITMSEPERATE,3,419,48,15,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_SEPERATE,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,60,417,100,15
+    LTEXT           "Set seperate index",IDC_STATIC,3,408,70,8
+    COMBOBOX        IDC_ITMTRANSPARENT,3,446,48,15,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_TRANSPARENT,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,60,443,100,15
+    LTEXT           "Adjust transparency (3-D)",IDC_STATIC,3,435,92,8
+    CONTROL         "",IDC_TRANSPARENT2,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,59,458,100,15
+    LTEXT           "Set horizontal Pos",IDC_STATIC,3,465,58,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "TODO: <Company name>"
+            VALUE "FileDescription", "TODO: <File description>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "PieChart.exe"
+            VALUE "LegalCopyright", "TODO: (c) <Company name>.  All rights reserved."
+            VALUE "OriginalFilename", "PieChart.exe"
+            VALUE "ProductName", "TODO: <Product name>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_PIECHART_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 3
+        RIGHTMARGIN, 662
+        VERTGUIDE, 38
+        VERTGUIDE, 84
+        VERTGUIDE, 95
+        VERTGUIDE, 154
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 473
+        HORZGUIDE, 27
+        HORZGUIDE, 74
+        HORZGUIDE, 187
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About PieChart..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\PieChart.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
