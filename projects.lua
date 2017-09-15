@@ -1,5 +1,5 @@
-BOOK_CODE_PATH = "E:/book-code"
-THIRD_PARTY = "E:/book-code/3rdparty"
+BOOK_CODE_PATH = "H:/rover/rover-self-work/cpp/book-code"
+THIRD_PARTY = "H:/rover/rover-self-work/cpp/book-code/3rdparty"
 WORK_PATH = os.getcwd()
 includeexternal (BOOK_CODE_PATH .. "/premake-vs-include.lua")
 
@@ -15,7 +15,7 @@ workspace(path.getname(os.realpath(".")))
         toolset "v120_xp"
     end
 
-    include ("common.lua")   
+    --include (BOOK_CODE_PATH .. "/common.lua")    
     
 
     group "test"       
@@ -43,14 +43,49 @@ workspace(path.getname(os.realpath(".")))
                 "3rdparty/wtl"
             }
 
-        create_dll_project("wtl_dialog_template", "src")
+        create_wtl_project("wtl_dialog_template", "src")
             includedirs
             {
                 "src",
                 "3rdparty/wtl"
             }
 
-        create_dll_project("wtl_windows_template", "src")
+        create_wtl_project("wtl_dialog_template_2", "src")
+            includedirs
+            {
+                "src",
+                "src/wtl_dialog_template_2",
+                "3rdparty/wtl",
+                "%{THIRD_PARTY}"
+            }
+
+        create_wtl_project("wtl_windows_template", "src")
+            includedirs
+            {
+                "src",
+                "3rdparty/wtl"
+            }
+
+        
+
+        create_wtl_project("wtl_listview", "src")
+            includedirs
+            {
+                "src",
+                "src/wtl_listview",
+                "src/wtl_listview/source",
+                "3rdparty/wtl"
+            }
+
+        create_wtl_project("leafanalysis", "src")
+            includedirs
+            {
+                "src",
+                "src/leafanalysis",                
+                "3rdparty/wtl"
+            }
+            
+        create_wtl_project("wtl_layered_window", "src")
             includedirs
             {
                 "src",
@@ -58,3 +93,62 @@ workspace(path.getname(os.realpath(".")))
             }
             
             
+        create_console_project("worker_thread_client", "src")
+
+
+    group "wtl_draw_examples"
+        matches = os.matchdirs("src/wtl_draw_examples/wtl_draw_*")
+        for i = #matches, 1, -1 do
+            --p.w(path.getname(matches[i]))  
+            local project_name = path.getname(matches[i])
+            
+            create_wtl_project(project_name, "src/wtl_draw_examples")
+            
+            
+        end
+
+    group "wtl_gdiplus_examples"
+        matches = os.matchdirs("src/wtl_gdiplus_examples/*")
+        for i = #matches, 1, -1 do
+            --p.w(path.getname(matches[i]))  
+            local project_name = path.getname(matches[i])
+            
+            create_wtl_project(project_name, "src/wtl_gdiplus_examples")
+            
+            
+        end
+
+    group "wtl_control_examples"
+        matches = os.matchdirs("src/wtl_control_examples/*")
+        for i = #matches, 1, -1 do
+            --p.w(path.getname(matches[i]))  
+            local project_name = path.getname(matches[i])
+            
+            create_wtl_project(project_name, "src/wtl_control_examples")
+            
+            
+        end
+
+    group "wtl_directx_examples"
+        matches = os.matchdirs("src/wtl_directx_examples/*")
+        for i = #matches, 1, -1 do
+            --p.w(path.getname(matches[i]))  
+            local project_name = path.getname(matches[i])
+            
+            create_wtl_project(project_name, "src/wtl_directx_examples")
+            
+            
+        end
+
+    
+    group "mfc_draw_examples"
+        matches = os.matchdirs("src/mfc_draw_examples/*")
+        for i = #matches, 1, -1 do
+            --p.w(path.getname(matches[i]))  
+            local project_name = path.getname(matches[i])
+            
+            create_mfc_project(project_name, "src/mfc_draw_examples")
+            
+            
+        end
+        

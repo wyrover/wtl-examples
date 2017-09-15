@@ -1,5 +1,5 @@
 #include "stdafx.h"
 
 #if (_ATL_VER < 0x0700)
-#include <atlimpl.cpp>
+    #include <atlimpl.cpp>
 #endif //(_ATL_VER < 0x0700)

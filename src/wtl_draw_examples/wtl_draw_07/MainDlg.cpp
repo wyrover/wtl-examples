@@ -55,18 +55,13 @@ LRESULT CMainDlg::OnPaint(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandle
     //CDCHandle dc = (HDC)wParam;
     CPaintDC dc(m_hWnd);
     // 绘制背景， 16 进制颜色， b,g,r
-
     CRect rc;
     rc.CopyRect(window_rc_);
     ScreenToClient(rc);
-
     TRACE_SEND_FORMAT("窗口矩形: %d, %d, %d, %d", rc.left, rc.top, rc.right, rc.bottom);
-
-
     CBrush brush;
     brush.CreateSolidBrush(0xffff00);
     dc.FillRect(rc, brush);
-    
     return 0;
 }
 
