@@ -1,0 +1,407 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "atlres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""atlres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST ""res\\\\Kibbles.exe.manifest""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  32, 32
+BEGIN
+    BUTTON      IDC_CHANGE_COLORS
+    BUTTON      IDC_RANDOMIZE_COLORS
+    SEPARATOR
+    BUTTON      IDC_ADD_FILE
+    BUTTON      IDC_SET_DOWNLOAD_DIR
+    SEPARATOR
+    BUTTON      IDC_CHOOSE_BKGND_BMP
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\Toolbar.bmp"
+IDB_BKGND_DUCK          BITMAP  DISCARDABLE     "res\\dkduck.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Download a File...\tCtrl+F", IDC_ADD_FILE
+        MENUITEM "&Set Download Directory...\tCtrl+D", IDC_SET_DOWNLOAD_DIR
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+        MENUITEM SEPARATOR
+        MENUITEM "&Change Colors...\tCtrl+H",   IDC_CHANGE_COLORS
+        MENUITEM "&Use Random Colors\tCtrl+R",  IDC_RANDOMIZE_COLORS
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About Kibbles...",           ID_APP_ABOUT
+    END
+END
+
+IDR_SELECT_PICTURE MENU DISCARDABLE 
+BEGIN
+    POPUP "popup"
+    BEGIN
+        MENUITEM "&Default Background Picture", IDC_DEFAULT_PICTURE
+        MENUITEM "&No Background Picture",      IDC_NO_PICTURE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\Kibbles.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 187, 102
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,130,81,50,14
+    CTEXT           "Kibbles Application v1.0\n\n(c) Copyright 2006",
+                    IDC_STATIC,25,57,78,32
+    ICON            IDR_MAINFRAME,IDC_STATIC,55,26,18,20
+    GROUPBOX        "",IDC_STATIC,7,7,115,88
+END
+
+IDD_JOB_RUNNING DIALOGEX 0, 0, 187, 102
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Kibbles Job Still Running"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LTEXT           "Kibbles is monitoring a BITS job that has not yet finished. What do you want do to?",
+                    IDC_STATIC,7,7,173,18
+    CONTROL         "&Finish the job now",IDC_FINISH_JOB,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,7,33,99,10
+    CONTROL         "&Cancel the job",IDC_CANCEL_JOB,"Button",
+                    BS_AUTORADIOBUTTON,7,47,99,10
+    CONTROL         "&Let the job continue",IDC_LET_JOB_RUN,"Button",
+                    BS_AUTORADIOBUTTON,7,61,99,10
+    DEFPUSHBUTTON   "OK",IDOK,73,81,50,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,130,81,50,14
+END
+
+IDD_DOWNLOAD_FILE DIALOGEX 0, 0, 321, 63
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CLIPSIBLINGS | 
+    WS_CLIPCHILDREN | WS_CAPTION | WS_SYSMENU
+CAPTION "Download a File"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LTEXT           "&URL to file:",IDC_STATIC,7,10,50,8
+    EDITTEXT        IDC_URL,63,7,142,14,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "&Save file as:",IDC_STATIC,7,27,50,8
+    EDITTEXT        IDC_LOCAL_FILENAME,63,24,142,14,ES_AUTOHSCROLL | 
+                    WS_GROUP
+    PUSHBUTTON      "&Browse...",IDC_BROWSE,209,24,50,14,WS_GROUP
+    DEFPUSHBUTTON   "OK",IDOK,264,7,50,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,264,24,50,14
+    LTEXT           "Note: BITS only supports downloading from HTTP and HTTPS URLs.",
+                    IDC_STATIC,7,49,307,8
+END
+
+IDD_CHOOSE_COLORS DIALOGEX 0, 0, 235, 113
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Choose Colors"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LTEXT           "Text color:",IDC_STATIC,7,10,90,8
+    LTEXT           "Background color:",IDC_STATIC,7,31,90,8
+    LTEXT           "Downloaded part outline:",IDC_STATIC,7,52,90,8
+    LTEXT           "Remaining part outline:",IDC_STATIC,7,73,90,8
+    LTEXT           "Remaining part fill color:",IDC_STATIC,7,94,90,8
+    PUSHBUTTON      "&Choose...",IDC_TEXT_COLOR,107,7,50,14,WS_GROUP
+    PUSHBUTTON      "Button1",IDC_BK_COLOR,107,28,50,14
+    PUSHBUTTON      "Button1",IDC_DL_OUTLINE_COLOR,107,49,50,14
+    PUSHBUTTON      "Button1",IDC_LEFT_OUTLINE_COLOR,107,70,50,14
+    PUSHBUTTON      "Button1",IDC_LEFT_FILL_COLOR,107,91,50,14
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,178,24,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 95
+    END
+
+    IDD_JOB_RUNNING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 95
+    END
+
+    IDD_DOWNLOAD_FILE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 314
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 56
+    END
+
+    IDD_CHOOSE_COLORS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 106
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "D",            IDC_SET_DOWNLOAD_DIR,   VIRTKEY, CONTROL, NOINVERT
+    "F",            IDC_ADD_FILE,           VIRTKEY, CONTROL, NOINVERT
+    "H",            IDC_CHANGE_COLORS,      VIRTKEY, CONTROL, NOINVERT
+    "R",            IDC_RANDOMIZE_COLORS,   VIRTKEY, CONTROL, NOINVERT
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "test1 Module\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Kibbles\0"
+            VALUE "LegalCopyright", "Copyright 2006\0"
+            VALUE "OriginalFilename", "Kibbles.exe\0"
+            VALUE "ProductName", "Kibbles Module\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "Kibbles"
+    IDS_JOB_STATE_QUEUED    "Queued"
+    IDS_JOB_STATE_CONNECTING "Connecting"
+    IDS_JOB_STATE_TRANSFERRING "Transferring"
+    IDS_JOB_STATE_SUSPENDED "Suspended"
+    IDS_JOB_STATE_ERROR     "Error"
+    IDS_JOB_STATE_TRANSIENT_ERROR "Transient error"
+    IDS_JOB_STATE_TRANSFERRED "Transferred"
+    IDS_JOB_STATE_ACKNOWLEDGED "Acknowledged"
+    IDS_JOB_STATE_CANCELLED "Cancelled"
+    IDS_JOB_STATE_UNKNOWN   "Unknown: %d"
+    IDS_COLORBTN_DEFAULT    "Default color"
+    IDS_COLORBTN_MORECOLORS "More colors..."
+    IDS_SELECT_DOWNLOAD_DIR "Select the directory to store downloaded files in."
+    IDS_NOJOB_MESSAGE       "Drag a hyperlink into this window to start downloading"
+    IDS_ADD_FILE_FAILED     "An error occurred while adding the file to the BITS job."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number, and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application\nExit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle toolbar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle status bar"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ATL_IDS_SCSIZE          "Change the window size"
+    ATL_IDS_SCMOVE          "Change the window position"
+    ATL_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    ATL_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    ATL_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ATL_IDS_SCRESTORE       "Restore the window to normal size"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ATL_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_FILEOPEN_DEFAULT_NAME "foobar.docx"
+    IDS_FILEOPEN_FILTERS    "Word 12 Files (*.docx)|*.docx|All Files (*.*)|*.*|"
+    IDS_DIRBROWSE_TITLE     "Choose a dir (starts in Windows dir)"
+    IDS_MSGBOX_TITLE        "Kibbles"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDC_SET_DOWNLOAD_DIR    "Change the directory where downloaded files are put\nSet download dir (Ctrl+D)"
+    IDC_ADD_FILE            "Download a file using BITS\nDownload a file (Ctrl+F)"
+    IDC_CHANGE_COLORS       "Set the colors used in the UI\nChange colors (Ctrl+H)"
+    IDC_RANDOMIZE_COLORS    "Set the UI colors to random values\nUse random colors (Ctrl+R)"
+    IDC_CHOOSE_BKGND_BMP    "\nChoose background picture"
+    IDC_NO_PICTURE          "Don't use a background picture"
+    IDC_DEFAULT_PICTURE     "Use the default background picture"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_COMINIT_FAILED      "OleInitialize failed, error: %s"
+    IDS_COINITSECURITY_FAILED "CoInitializeSecurity failed, error: %s"
+    IDS_COCREATE_BITS_FAILED "Error creating BITS COM object, error: %s"
+    IDS_CREATE_DROPTARGET_FAILED 
+                            "Error creating drop handler object, drag and drop will not work correctly in the application."
+    IDS_REGISTER_DRAGDROP_FAILED 
+                            "Error registering drop handler object, drag and drop will not work correctly in the application. Error: %s"
+    IDS_CREATE_JOB_ERROR    "Error creating BITS job: %s"
+    IDS_ADD_FILE_ERROR      "Error adding file to the BITS job: %s"
+    IDS_GET_STATE_ERROR     "Error reading the BITS job state, the job may not start. Error: %s"
+    IDS_RESUME_JOB_ERROR    "Error starting BITS job: %s"
+    IDS_COMPLETE_JOB_ERROR  "Error completing the BITS job, some files may not be downloaded. Error: %s"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_JOB_STATE_DESC      "Job state: %s\n"
+    IDS_FILESIZE_UNKNOWN    "unknown"
+    IDS_AMT_DOWNLOADED_DESC "Files downloaded: %lu of %lu\nBytes downloaded: %I64u of %s (%s%%)"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "res\\Kibbles.exe.manifest"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

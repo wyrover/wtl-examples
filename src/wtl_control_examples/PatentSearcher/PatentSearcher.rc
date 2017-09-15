@@ -1,0 +1,475 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "atlres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_TREEICON            BITMAP                  "res\\ExampleItems.bmp"
+IDB_BITMAP1             BITMAP                  "res\\Toolbar.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU 
+BEGIN
+    POPUP "文件(&F)"
+    BEGIN
+        MENUITEM SEPARATOR
+        MENUITEM "退出(&E)",                      ID_APP_EXIT
+    END
+    POPUP "搜索(&S)"
+    BEGIN
+        MENUITEM "中国SIPO检索(&C)",                ID_NET_SEARCH
+        MENUITEM "本地检索(&L)",                    ID_LOCAL_SEARCH
+    END
+    POPUP "视图(&V)"
+    BEGIN
+        MENUITEM "工具栏(&T)",                     ID_VIEW_TOOLBAR
+        MENUITEM "状态栏(&S)",                     ID_VIEW_STATUS_BAR
+        MENUITEM "隐藏左栏(&H)",                    ID_VIEW_TREE
+        MENUITEM "下载列表(&D)",                    ID_VIEW_DOWNLOAD
+    END
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "关于(&A)...",                   ID_APP_ABOUT
+    END
+END
+
+IDR_DOWNLOAD_POP MENU 
+BEGIN
+    POPUP "DOWNLOAD"
+    BEGIN
+        MENUITEM "开始",                          ID_DOWNLOAD_START
+        MENUITEM "停止",                          ID_DOWNLOAD_STOP
+        MENUITEM "删除",                          ID_DOWNLOAD_DEL
+        MENUITEM SEPARATOR
+        MENUITEM "全部选中(&U)",                    ID_DOWNLOAD_SELECTALL
+        MENUITEM "反向选中(&T)",                    ID_DOWNLOAD_RESELECT
+        MENUITEM SEPARATOR
+        MENUITEM "打开文件",                        ID_DOWNLOAD_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "全部开始下载",                      ID_DOWNLOAD_ALLSTART
+        MENUITEM "全部停止下载",                      ID_DOWNLOAD_ALLSTOP
+    END
+END
+
+IDR_INFO_POP MENU 
+BEGIN
+    POPUP "INFO_POP"
+    BEGIN
+        MENUITEM "打开PDF",                       ID_INFO_OPEN
+        MENUITEM "重新下载PDF",                     ID_INFO_RELOAD
+        MENUITEM "删除PDF",                       ID_INFO_DEL
+        MENUITEM SEPARATOR
+        MENUITEM "全部选中",                        ID_INFO_SELECTALL
+        MENUITEM "反向选中",                        ID_INFO_RESELECT
+    END
+END
+
+IDR_SEARCH_POP MENU 
+BEGIN
+    POPUP "SEARCH_POP"
+    BEGIN
+        MENUITEM "全部选中",                        ID_SEARCH_SELECTALL
+        MENUITEM "反向选中",                        ID_SEARCH_RESELECT
+        MENUITEM SEPARATOR
+        MENUITEM "下载选中",                        ID_SEARCH_LOADSELECT
+        MENUITEM "重新下载",                        ID_SEARCH_RELOAD
+        MENUITEM SEPARATOR
+    END
+END
+
+IDR_TREE_POP MENU 
+BEGIN
+    POPUP "TREE_POP"
+    BEGIN
+        MENUITEM "创建新分类(&C)",                   ID_TREE_CREATE
+        MENUITEM "删除当前分类(&D)",                  ID_TREE_DEL
+        MENUITEM "编辑分类名称(&E)",                  ID_TREE_EDIT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DLG_DOWNLOAD DIALOGEX 0, 0, 730, 314
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_CLIPCHILDREN | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "开始",ID_DOWNLOAD_START,18,9,30,16,WS_DISABLED
+    PUSHBUTTON      "停止",ID_DOWNLOAD_STOP,60,9,30,16,WS_DISABLED
+    PUSHBUTTON      "删除",ID_DOWNLOAD_DEL,110,9,30,16,WS_DISABLED
+    CONTROL         "",IDC_TREE1,"SysTreeView32",WS_BORDER | WS_HSCROLL | WS_TABSTOP,116,50,60,50
+END
+
+IDD_DLG_SEARCH DIALOGEX 0, 0, 652, 324
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "下载选中",ID_SEARCH_LOADSELECT,18,9,50,14,WS_DISABLED
+    PUSHBUTTON      "重新下载",ID_SEARCH_RELOAD,81,9,50,14,WS_DISABLED
+    PUSHBUTTON      "首页",IDC_BTN_FIRSTPAGE,17,302,26,14
+    PUSHBUTTON      "上一页",IDC_BTN_PREVPAGE,47,302,35,14
+    PUSHBUTTON      "下一页",IDC_BTN_NEXTPAGE,86,302,35,14
+    PUSHBUTTON      "尾页",IDC_BTN_LASTPAGE,125,302,26,14
+    PUSHBUTTON      "转",IDC_BTN_GO,224,302,16,14
+    LTEXT           "转到",IDC_STATIC1,184,305,16,14
+    EDITTEXT        IDC_EDIT_CURRENTPAGE,205,302,16,14,ES_AUTOHSCROLL
+    LTEXT           "页次：？/？页，共有？条",IDC_STATIC_INFO,501,302,92,8
+    CONTROL         "",IDC_LIST_SEARCH,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,0,30,651,265
+    PUSHBUTTON      "全部选中",ID_SEARCH_SELECTALL,144,9,50,14
+    LTEXT           "发明专利：        件   实用新型专利：        件   外观专利：        件 ",IDC_STATIC_PATENTINFO,303,9,303,14
+END
+
+IDD_DLG_INFO DIALOGEX 0, 0, 673, 315
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "打开PDF文档",ID_INFO_OPEN,18,9,60,14,WS_DISABLED
+    PUSHBUTTON      "导出选中的PDF",ID_EXPORT,88,9,60,14,WS_DISABLED
+    PUSHBUTTON      "删除选中",ID_INFO_DEL,156,9,50,14,WS_DISABLED
+    CONTROL         "",IDC_LIST_INFO,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,0,32,673,281
+END
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 187, 102
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,130,81,50,14
+    CTEXT           "PatentSearcher Application v1.0\n\n(c) Copyright 2011",IDC_STATIC,25,57,90,32
+    ICON            IDI_ICON_ABOUT,IDC_STATIC,18,23,21,23
+    GROUPBOX        "",IDC_STATIC,7,7,124,88
+    LTEXT           "速欣科技\nwww.suxinkeji.net",IDC_STATIC,55,23,69,31
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_DLG_DOWNLOAD, DIALOG
+    BEGIN
+        VERTGUIDE, 18
+        HORZGUIDE, 9
+    END
+
+    IDD_DLG_SEARCH, DIALOG
+    BEGIN
+        VERTGUIDE, 18
+        HORZGUIDE, 9
+    END
+
+    IDD_DLG_INFO, DIALOG
+    BEGIN
+        RIGHTMARGIN, 486
+        VERTGUIDE, 18
+        BOTTOMMARGIN, 284
+        HORZGUIDE, 9
+    END
+
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 95
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON_ABOUT          ICON                    "res\\Recycle.ico"
+IDI_ICON1               ICON                    "res\\1.ico"
+IDI_ICON2               ICON                    "res\\2.ico"
+IDI_ICON3               ICON                    "res\\3.ico"
+IDI_ICON4               ICON                    "res\\4.ico"
+IDI_ICON5               ICON                    "res\\5.ico"
+IDI_ICON6               ICON                    "res\\6.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", "www.suxinkeji.net"
+            VALUE "CompanyName", "速欣科技有限公司"
+            VALUE "FileDescription", "专利检索软件"
+            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "InternalName", "PatentSearcher"
+            VALUE "LegalCopyright", "Copyright 2011"
+            VALUE "OriginalFilename", "PatentSearcher.exe"
+            VALUE "ProductName", "专利检索软件"
+            VALUE "ProductVersion", "1, 0, 0, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDR_MAINFRAME           "PatentSearcher"
+    IDS_LIST_HEADER         "TreeList"
+    IDPANE_SOURCE           "数据源： SIPO主服务器"
+    IDPANE_SEARCH_TIME      "检索时间：2011-11-11 11:11:11 "
+    IDPANE_DOWNLOADLIST     "@下载列表：- -条@"
+    IDPANE_STATUS           "@速欣科技@"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+    ID_FILE_PAGE_SETUP      "Change the printing options\nPage Setup"
+    ID_FILE_PRINT_SETUP     "Change the printer and printing options\nPrint Setup"
+    ID_FILE_PRINT           "Print the active document\nPrint"
+    ID_FILE_PRINT_PREVIEW   "Display full pages\nPrint Preview"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\n关于"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_TILE_VERT     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE 
+BEGIN
+    ATL_IDS_SCSIZE          "Change the window size"
+    ATL_IDS_SCMOVE          "Change the window position"
+    ATL_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    ATL_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    ATL_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    ATL_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    ATL_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE 
+BEGIN
+    ATL_IDS_SCRESTORE       "Restore the window to normal size"
+    ATL_IDS_SCTASKLIST      "Activate Task List"
+    ATL_IDS_MDICHILD        "Activate this window"
+END
+
+STRINGTABLE 
+BEGIN
+    ATL_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE 
+BEGIN
+    ATL_IDS_MRU_FILE        "Open this document"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_LOCAL_SEARCH         "local search\n本地搜索"
+    ID_NET_SEARCH           "net search\n联网搜索"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_VIEW_TREE            "view tree\n显示/隐藏左边框栏"
+    ID_VIEW_DOWNLOAD        "view download\n下载列表"
+END
+
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 英语(美国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\PatentSearcher.ico"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""atlres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR  32, 32
+BEGIN
+    BUTTON      ID_NET_SEARCH
+    BUTTON      ID_LOCAL_SEARCH
+    SEPARATOR
+    BUTTON      ID_VIEW_DOWNLOAD
+    BUTTON      ID_VIEW_TREE
+    BUTTON      ID_APP_ABOUT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+#endif    // 英语(美国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
