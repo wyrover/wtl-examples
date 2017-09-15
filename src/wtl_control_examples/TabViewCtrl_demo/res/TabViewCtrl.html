@@ -1,0 +1,285 @@
+<!--------------------------------------------------------------------------->  
+<!--                           INTRODUCTION                                
+
+ The Code Project article submission template (HTML version)
+
+Using this template will help us post your article sooner. To use, just 
+follow the 3 easy steps below:
+ 
+     1. Fill in the article description details
+     2. Add links to your images and downloads
+     3. Include the main article text
+
+That's all there is to it! All formatting will be done by our submission
+scripts and style sheets. 
+
+-->  
+<!--------------------------------------------------------------------------->  
+<!--                        IGNORE THIS SECTION                            -->
+<html>
+<head>
+<title>The Code Project</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<Style>
+BODY, P, TD { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10pt }
+H2,H3,H4,H5 { color: #ff9900; font-weight: bold; }
+H2 { font-size: 13pt; }
+H3 { font-size: 12pt; }
+H4 { font-size: 10pt; color: black; }
+PRE { BACKGROUND-COLOR: #FBEDBB; FONT-FAMILY: "Courier New", Courier, mono; WHITE-SPACE: pre; }
+CODE { COLOR: #990000; FONT-FAMILY: "Courier New", Courier, mono; }
+.cpp-comment { COLOR: green; FONT-STYLE: italic }
+.cpp-keyword { COLOR: blue }
+
+</style>
+</head>
+<body bgcolor="#FFFFFF" color=#000000>
+<!--------------------------------------------------------------------------->  
+
+
+<!-------------------------------     STEP 1      --------------------------->
+<!--  Fill in the details (CodeProject will reformat this section for you) -->
+
+<pre>
+Title:       A WTL Tab Control
+Author:      Stephen Jones
+Email:       Stephen@Jones-net.com
+Environment: VC++ 6.0, Win9X, Win2K
+Keywords:    Tab Control, WTL
+Level:       Intermediate
+Description: A WTL based tab control for managing tab "Views".
+Section      WTL, Controls
+SubSection   Tab Controls
+</pre>
+
+<hr width=100% noshade>
+
+<!-------------------------------     STEP 2      --------------------------->
+<!--  Include download and sample image information.                       --> 
+
+<ul class=download>
+<li><a href="CWTLTabViewCtrl_demo.zip">Download demo project - 128 Kb </a></li>
+<li><a href="CWTLTabViewCtrl_src.zip">Download source - 66 Kb</a></li>
+</ul>
+
+<p><img src="res://TabViewDemo.exe/JPGS/TabViewCtrl.jpg" alt="CWTLTabViewCtrl Demo Image"></p>
+
+
+<!-------------------------------     STEP 3      --------------------------->
+<!--  Add the article text. Please use simple formatting (<h2>, <p> etc)   --> 
+
+<h2>Introduction</h2>
+
+<p>If you are looking for general information about tab 
+controls, you are in the wrong place. You can find general information 
+about tab controls elsewhere 
+(<a href="http://msdn.microsoft.com/library/en-us/shellcc/platform/commctls/tab/tab.asp">
+http://msdn.microsoft.com/library/en-us/shellcc/platform/commctls/tab/tab.asp</a>). 
+If you are just looking for an easier way to use tab controls in WTL, read on.
+</p>
+
+<h2>About</h2>
+
+<p>Tab controls are powerful tools, but sometimes it can be a hassle to 
+re-implement tab management every time you need a tab control. This
+class encapsulates the functionality for managing tabs.
+</p>
+
+<p>Some similar controls are available for MFC, but I could not
+find any tab management controls for WTL. This class was originally a port of an
+MFC class <code>CSizingTabCtrlBar</code> (author unknown), but as work progressed
+the implementation changed significantly.
+</p>
+
+<p>The management of the "View" windows for each tab is loosely based
+on the pane management for <code>WTL::CSplitterImpl</code>. Child "View" windows 
+are created by the application for each tab and submitted to the 
+<code>CWTLTabViewCtrl</code> for management.
+</p>
+
+<h2>Usage</h2>
+
+<p>To use this class in an SDI WTL application, derive a class from <code>CWTLTabViewCtrl</code>.
+(You need to have WTL in your include path to compile.)
+</p>
+
+<pre>
+	class CDemoTabViewCtrl : public CWTLTabViewCtrl
+	{
+		public:
+			DECLARE_WND_SUPERCLASS(NULL, CWTLTabViewCtrl::GetWndClassName())
+
+			BOOL PreTranslateMessage(MSG* pMsg)
+			{
+				pMsg;
+				return FALSE;
+			}
+
+			BEGIN_MSG_MAP_EX(CDemoTabViewCtrl)
+				CHAIN_MSG_MAP(CWTLTabViewCtrl)
+			END_MSG_MAP()
+	};	
+</pre>
+
+<p>and declare it as a member variable on the main frame.
+</p>
+
+<pre>
+	...
+	CDemoTabViewCtrl	m_TabViewDemo;
+	...
+</pre>
+
+<h3>Creation</h3>
+
+<p>In a WTL SDI application, create the tab view window as a child of the main frame
+and assign the window handle to the <code>m_hWndClient</code> member variable.
+</p>
+
+<pre>
+	m_hWndClient = m_TabViewDemo.Create( m_hWnd, rcDefault, NULL, WS_CHILD | WS_VISIBLE, WS_EX_STATICEDGE );
+	...
+</pre>
+
+<h3>Adding a tab</h3>
+
+<p>To add a tab to the tab control, simply call <code>CWTLTabViewCtrl::AddTab</code>,
+passing the tab label, the window to manage and optionally the activation state,
+the image index and the param to associate with the tab.
+</p>
+
+<pre>
+	CTabDemoHelp	m_DemoTabHwnd;
+
+	<SPAN class=cpp-comment>// Create the tab as a child of the tab control</SPAN>
+	m_DemoTabHwnd.Create( m_hWndClient );	
+
+	<SPAN class=cpp-comment>// Add the tab to the tab control</SPAN>
+	m_TabViewDemo.AddTab( "Tab Name", m_DemoTabHwnd );
+	...
+</pre>
+
+<h3>Removing a tab</h3>
+
+<p>To remove a tab from the tab control, call <code>CWTLTabViewCtrl::RemoveTab</code>
+with the zero based index of the tab to remove..
+</p>
+
+<pre>
+	<SPAN class=cpp-comment>// Remove the tab by specifying the zero based index of the tab to remove</SPAN>
+	m_TabViewDemo.RemoveTab( theIndexOfTheTabToRemove );
+	...
+</pre>
+
+<p><code>CWTLTabViewCtrl::RemoveTab( )</code> does not destroy the window handle 
+passed to <code>CWTLTabViewCtrl::AddTab</code>. This should be done when 
+<code>CWTLTabViewCtrl::RemoveTab()</code> is called or when the window is no longer needed.
+</p>
+
+<p>You can also override the <code>CWTLTabViewCtrl::OnTabRemoved</code> virtual
+method in the derived tab control class to destroy the window or any memory 
+allocated for the window. 
+</p>
+
+<h3>Usage in other scenarios</h3>
+
+<p>Using this class in a WTL MDI or WTL dialog application should be straightforward.
+Let me know how it goes ;-)
+</p>
+
+<h3>Modifying the tab control styles</h3>
+
+<p>To modify the styles of the tab control, call the <code>CWTLTabViewCtrl::ModifyTabStyle( )</code> 
+method. Using this method to set or remove the tab styles, TCS_BOTTOM, TCS_RIGHT and 
+TCS_VERTICAL will set the font to the appropriate orientation.
+</p>
+
+<p>Evidently a tab control can handle tabs of different orientations, though it fails
+to modify the text used to draw the tab label to the proper orientation. The WM_SETFONT 
+message is used to set the appropriate font.
+</p>
+
+<h3>Image Lists</h3>
+
+<p>Image lists can be associated with any tab control. These image lists are used to determine
+the image that appears on each tab. An optional parameter of the CWTLTabViewCtrl::AddTab()
+method specifies the zero based index of the image in the image list that should appear next 
+to the tab label.
+</p>
+
+<h3>API Reference</h3>
+
+<p>All <code>WTL::CTabCtrl</code> methods are available on <code>CWTLTabViewCtrl</code>
+since the latter is derived from the former. The Windows Help file included with the 
+source download contains a complete API reference, compliments of doxygen 
+(<a href="http://www.doxygen.org">http://www.doxygen.org</a>).
+</p>
+
+<h3>Limitations</h3>
+
+<p>In order for the tab view control to receive the <code>TCN_SELCHANGE</code> message
+that notifies the control that a new tab has been selected, parent windows 
+must have the <code>REFLECT_NOTIFICATIONS()</code> macro in their message maps.
+</p>
+
+<pre>
+	BEGIN_MSG_MAP(CMainFrame)
+		...
+		REFLECT_NOTIFICATIONS()
+		...
+	END_MSG_MAP()
+</pre>
+
+<p>If the tab view window is a child of another window, such as 
+<code>CSplitterWindow</code>, you can use	the <code>FORWARD_NOTIFICATIONS()</code> 
+macro to forward the <code>WM_NOTIFY</code> messages.
+</p>
+
+<pre>
+	BEGIN_MSG_MAP(thisClass)
+		...
+		FORWARD_NOTIFICATIONS()
+		...
+	END_MSG_MAP()
+</pre>
+
+<h2>Demo Application</h2>
+
+<p>The demo application is a simple WTL SDI application that houses the tab 
+view control. It allows you to add and remove tabs and dynamically change the
+style of the tab control.
+</p>
+
+<p>This application dynamically allocates a window class and stores it
+as the param associated with the tab. When the tab is removed, it destroys
+the window and deletes the window class in the overloaded 
+<code>CWTLTabViewCtrl::OnTabRemoved</code> virtual method. It uses the 
+image index to determine the type of window to be deleted.
+</p>
+
+<h2>History</h2>
+
+<p>For updates to this class, visit <a href="http://www.jones-net.com">
+http://www.jones-net.com</a>. Send me an email if you end up using this class.
+</p>
+
+<pre>
+06/18/2002	Creation
+</pre>
+
+<h2>Copyright</h2>
+
+<p>This article and all accompanying material is &copy;2002 Stephen Jones. All rights reserved.
+The compiled source code may be used at will.
+</p>
+
+<p>THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT EXPRESS OR IMPLIED WARRANTY. USE IT 
+AT YOUR OWN RISK! THE AUTHOR ACCEPTS NO LIABILITY FOR ANY DAMAGE/LOSS OF 
+BUSINESS THAT THIS PRODUCT MAY CAUSE.
+</p>
+
+<br>
+
+<!-------------------------------    That's it!   --------------------------->
+</body>
+</html>

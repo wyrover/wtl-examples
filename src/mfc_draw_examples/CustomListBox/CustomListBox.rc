@@ -1,0 +1,295 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\CustomListBox.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\CustomListBox.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION " About CustomListBox"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "CustomListBox Version 1.0",IDC_STATIC,40,23,119,8,
+                    SS_NOPREFIX | SS_CENTERIMAGE
+    LTEXT           "Copyright (C) 2004",IDC_STATIC,40,37,119,8,
+                    SS_CENTERIMAGE
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+    LTEXT           "Franc Morales",IDC_STATIC,40,9,119,8,SS_CENTERIMAGE
+END
+
+IDD_CUSTOMLISTBOX_DIALOG DIALOGEX 0, 0, 299, 294
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION " A Custom ListBox by Franc Morales"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "Borders",IDC_BT_BORDER,11,135,53,14
+    CONTROL         "",IDC_FR_BORDER1,"Static",SS_BLACKFRAME,69,135,14,14
+    CONTROL         "",IDC_FR_BORDER2,"Static",SS_BLACKFRAME,87,135,14,14
+    PUSHBUTTON      "Background",IDC_BT_BACKGROUND,11,152,53,14
+    CONTROL         "",IDC_FR_BACKGROUND1,"Static",SS_BLACKFRAME,69,152,14,
+                    14
+    CONTROL         "",IDC_FR_BACKGROUND2,"Static",SS_BLACKFRAME,87,152,14,
+                    14
+    PUSHBUTTON      "Text Color",IDC_BT_TEXTCOLOR,11,169,53,14
+    CONTROL         "",IDC_FR_TEXTCOLOR,"Static",SS_BLACKFRAME,69,169,14,14
+    CONTROL         "R",IDC_CB_TEXTCOLOR,"Button",BS_AUTOCHECKBOX | BS_LEFT | 
+                    WS_TABSTOP,87,169,17,14
+    PUSHBUTTON      "Selection",IDC_BT_SELECTION,11,186,53,14
+    CONTROL         "",IDC_FR_SELECTION1,"Static",SS_BLACKFRAME,69,186,14,14
+    CONTROL         "",IDC_FR_SELECTION2,"Static",SS_BLACKFRAME,87,186,14,14
+    CONTROL         "",IDC_FR_SELECTION3,"Static",SS_BLACKFRAME,69,203,14,14
+    CONTROL         "",IDC_FR_SELECTION4,"Static",SS_BLACKFRAME,87,203,14,14
+    PUSHBUTTON      "Column Width",IDC_BT_COLUMN_WIDTH,11,220,53,14
+    EDITTEXT        IDC_EF_N_COLUMN_WIDTH,69,221,14,12,ES_AUTOHSCROLL | 
+                    ES_NUMBER | NOT WS_BORDER,WS_EX_STATICEDGE
+    PUSHBUTTON      "Buttons",IDC_BT_SB,11,252,53,14
+    CONTROL         "",IDC_FR_SB1,"Static",SS_BLACKFRAME,69,252,14,14
+    CONTROL         "",IDC_FR_SB2,"Static",SS_BLACKFRAME,87,252,14,14
+    CONTROL         "",IDC_FR_SB3,"Static",SS_BLACKFRAME,69,269,14,14
+    CONTROL         "",IDC_FR_SB4,"Static",SS_BLACKFRAME,87,269,14,14
+    PUSHBUTTON      "Populate with",IDC_BT_POPULATE,114,135,53,14
+    EDITTEXT        IDC_EF_N_POPULATE,171,136,14,12,ES_AUTOHSCROLL | 
+                    ES_NUMBER | NOT WS_BORDER,WS_EX_STATICEDGE
+    PUSHBUTTON      "Add",IDC_BT_ADD,114,152,53,14
+    EDITTEXT        IDC_EF_S_ADD,189,153,68,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER,WS_EX_STATICEDGE
+    CONTROL         "",IDC_CB_ADD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,261,
+                    153,9,12
+    CONTROL         "",IDC_FR_ADD,"Static",SS_BLACKFRAME,273,152,14,14
+    PUSHBUTTON      "Insert",IDC_BT_INSERT,114,169,53,14
+    EDITTEXT        IDC_EF_N_INSERT,171,170,14,12,ES_AUTOHSCROLL | ES_NUMBER | 
+                    NOT WS_BORDER,WS_EX_STATICEDGE
+    EDITTEXT        IDC_EF_S_INSERT,189,170,68,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER,WS_EX_STATICEDGE
+    CONTROL         "",IDC_CB_INSERT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    261,170,9,12
+    CONTROL         "",IDC_FR_INSERT,"Static",SS_BLACKFRAME,273,169,14,14
+    PUSHBUTTON      "Change",IDC_BT_CHANGE,114,186,53,14
+    EDITTEXT        IDC_EF_N_CHANGE,171,187,14,12,ES_AUTOHSCROLL | ES_NUMBER | 
+                    NOT WS_BORDER,WS_EX_STATICEDGE
+    EDITTEXT        IDC_EF_S_CHANGE,189,187,68,12,ES_AUTOHSCROLL | NOT 
+                    WS_BORDER,WS_EX_STATICEDGE
+    CONTROL         "",IDC_CB_CHANGE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    261,187,9,12
+    CONTROL         "",IDC_FR_CHANGE,"Static",SS_BLACKFRAME,273,186,14,14
+    PUSHBUTTON      "Get",IDC_BT_GET,114,203,53,14
+    EDITTEXT        IDC_EF_N_GET,171,204,14,12,ES_AUTOHSCROLL | ES_NUMBER | 
+                    NOT WS_BORDER,WS_EX_STATICEDGE
+    EDITTEXT        IDC_EF_S_GET,189,204,68,12,ES_AUTOHSCROLL | ES_READONLY | 
+                    NOT WS_BORDER,WS_EX_STATICEDGE
+    CONTROL         "",IDC_FR_GET,"Static",SS_BLACKFRAME,273,203,14,14
+    PUSHBUTTON      "Get Selection",IDC_BT_GETSELECTED,114,220,53,14
+    EDITTEXT        IDC_EF_N_GETSELECTED,171,221,14,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | ES_NUMBER | NOT WS_BORDER,WS_EX_STATICEDGE
+    EDITTEXT        IDC_EF_S_GETSELECTED,189,221,68,12,ES_AUTOHSCROLL | 
+                    ES_READONLY | NOT WS_BORDER,WS_EX_STATICEDGE
+    CONTROL         "",IDC_FR_GETSELECTED,"Static",SS_BLACKFRAME,273,220,14,
+                    14
+    PUSHBUTTON      "Remove",IDC_BT_REMOVE,114,237,53,14
+    EDITTEXT        IDC_EF_N_REMOVE,171,238,14,12,ES_AUTOHSCROLL | ES_NUMBER | 
+                    NOT WS_BORDER,WS_EX_STATICEDGE
+    PUSHBUTTON      "Remove All",IDC_BT_REMOVEALL,234,237,53,14
+    PUSHBUTTON      "Tootle loo",IDC_BT_TOOTLE,121,272,63,14
+    LTEXT           "Cherry blossoms?\nIn these parts\ngrass also blooms.",
+                    IDC_ST_GRASS,207,260,60,24,0,WS_EX_TRANSPARENT
+    LTEXT           "Issa",IDC_ST_ISSA,276,277,14,8,0,WS_EX_TRANSPARENT
+    CONTROL         "",IDC_CUSTOM1,"MFC_CCWinListBox",WS_TABSTOP,7,7,285,110
+    GROUPBOX        " ListBox Operations ",IDC_STATIC,110,123,182,132
+    GROUPBOX        " ListBox Appearance ",IDC_STATIC,7,123,99,115
+    GROUPBOX        " ScrollBar Appearance ",IDC_STATIC,7,240,99,47
+    LTEXT           "additional items",IDC_STATIC,189,136,68,12,
+                    SS_CENTERIMAGE
+    LTEXT           "chars",IDC_STATIC,85,221,18,12,SS_CENTERIMAGE
+    CONTROL         "",IDC_STATIC,"Static",SS_WHITEFRAME,198,259,93,27
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", "\0"
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "CustomListBox MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "CustomListBox\0"
+            VALUE "LegalCopyright", "Copyright (C) 2004\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "CustomListBox.EXE\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "CustomListBox Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_CUSTOMLISTBOX_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 292
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 287
+        HORZGUIDE, 240
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_CURSOR1             CURSOR  DISCARDABLE     "res\\cursor1.cur"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About CustomListBox..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\CustomListBox.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

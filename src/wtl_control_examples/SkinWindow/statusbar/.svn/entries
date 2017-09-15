@@ -1,0 +1,40 @@
+8
+
+dir
+1229
+svn://192.168.11.216/MMPlusClient/trunk/test/SkinWindow/statusbar
+svn://192.168.11.216/MMPlusClient
+
+
+
+2007-06-25T17:11:23.463780Z
+70
+yu.xu
+
+
+svn:special svn:externals svn:needs-lock
+
+XuStatusBarCtrl.h
+file
+
+
+
+
+2007-05-29T06:55:27.000000Z
+6eb22ef6e7bd1604393c91f7c1e7b924
+2007-06-25T17:11:23.463780Z
+70
+yu.xu
+
+XuStatusBarCtrl.cpp
+file
+
+
+
+
+2007-05-25T10:19:41.781250Z
+125ad3328a37ad92c9d8528807a91f04
+2007-06-25T17:11:23.463780Z
+70
+yu.xu
+

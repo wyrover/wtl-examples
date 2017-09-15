@@ -1,0 +1,471 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "atlres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Danish resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DAN)
+#ifdef _WIN32
+LANGUAGE LANG_DANISH, SUBLANG_DEFAULT
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
+IDB_NAVPANEL_LEFT       PNG     DISCARDABLE     "res\\navpanel_left.png"
+IDB_NAVPANEL_RIGHT      PNG     DISCARDABLE     "res\\navpanel_right.png"
+IDB_NAVPANEL_SIDE       PNG     DISCARDABLE     "res\\navpanel_side.png"
+IDB_NAVPANEL_MIDDLE     PNG     DISCARDABLE     "res\\navpanel_middle.png"
+IDB_NAVBUTTONS_FORWARD  PNG     DISCARDABLE     "res\\navbuttons_forward.png"
+IDB_NAVBUTTONS_BACK     PNG     DISCARDABLE     "res\\navbuttons_back.png"
+IDB_NAVBUTTONS_RESET    PNG     DISCARDABLE     "res\\navbuttons_reset.png"
+IDB_NAVBUTTONS_ROTLEFT  PNG     DISCARDABLE     "res\\navbuttons_rotleft.png"
+IDB_NAVBUTTONS_ROTRIGHT PNG     DISCARDABLE     "res\\navbuttons_rotright.png"
+IDB_NAVBUTTONS_RUN      PNG     DISCARDABLE     "res\\navbuttons_run.png"
+IDB_NAVBUTTONS_ZOOM     PNG     DISCARDABLE     "res\\navbuttons_zoom.png"
+IDB_NAVBUTTONS_DELETE   PNG     DISCARDABLE     "res\\navbuttons_delete.png"
+IDB_BAR_RIGHT           PNG     DISCARDABLE     "res\\bar_navright.png"
+IDB_BAR_LEFT            PNG     DISCARDABLE     "res\\bar_navleft.png"
+IDB_BAR_HELP            PNG     DISCARDABLE     "res\\bar_help.png"
+IDB_BAR_CHEVRON         PNG     DISCARDABLE     "res\\bar_chevron.png"
+IDB_BARBUTTON_RIGHT     PNG     DISCARDABLE     "res\\barbutton_right.png"
+IDB_BARBUTTON_LEFT      PNG     DISCARDABLE     "res\\barbutton_left.png"
+IDB_BARBUTTON_MIDDLE    PNG     DISCARDABLE     "res\\barbutton_middle.png"
+IDB_BARITEM_INFO        PNG     DISCARDABLE     "res\\baritem_info.png"
+IDB_BARITEM_EDIT        PNG     DISCARDABLE     "res\\baritem_edit.png"
+IDB_BARITEM_FILE        PNG     DISCARDABLE     "res\\baritem_file.png"
+IDB_BARITEM_PRINT       PNG     DISCARDABLE     "res\\baritem_print.png"
+IDB_BARITEM_BURN        PNG     DISCARDABLE     "res\\baritem_burn.png"
+IDB_BARITEM_EMAIL       PNG     DISCARDABLE     "res\\baritem_email.png"
+IDB_EMPTYSELECTION      PNG     DISCARDABLE     "res\\nosel.png"
+IDB_INFOSHADOW          PNG     DISCARDABLE     "res\\infoshadow.png"
+IDB_ADDKEYWORD          PNG     DISCARDABLE     "res\\addkeyword.png"
+IDB_RESET               PNG     DISCARDABLE     "res\\options.png"
+IDB_BARITEM_MOVIE       PNG     DISCARDABLE     "res\\baritem_movie.png"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_TREEIMAGES          BITMAP  DISCARDABLE     "res\\treeimages.bmp"
+IDB_TREEIMAGES_MASK     BITMAP  DISCARDABLE     "res\\treeimages_mask.bmp"
+IDB_KEYWORDS            BITMAP  DISCARDABLE     "res\\keywords.bmp"
+IDB_SEARCH              BITMAP  DISCARDABLE     "res\\searchbutton.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDM_OPTIONS MENU DISCARDABLE 
+BEGIN
+    POPUP "Popup"
+    BEGIN
+        MENUITEM "View as thumbnails",          ID_VIEW_THUMBNAILS
+        MENUITEM "Thumbnails with text",        ID_VIEW_THUMBTEXT
+        MENUITEM "View as tiled",               ID_VIEW_TILES
+        MENUITEM SEPARATOR
+        POPUP "Group by..."
+        BEGIN
+            MENUITEM "&Date",                       ID_GROUPBY_DATE, CHECKED
+            MENUITEM "&Title",                      ID_GROUPBY_TITLE
+            , INACTIVE
+        END
+        POPUP "Sort by..."
+        BEGIN
+            MENUITEM "&Date",                       ID_SORTBY_DATE, CHECKED
+            MENUITEM "Text",                        ID_SORTBY_TEXT, GRAYED
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Show Table of Contents    ",  ID_VIEW_CONTENTS
+        MENUITEM SEPARATOR
+        MENUITEM "Update",                      ID_VIEW_UPDATE
+    END
+END
+
+IDM_LISTVIEW MENU DISCARDABLE 
+BEGIN
+    POPUP "Popup"
+    BEGIN
+        POPUP "&View"
+        BEGIN
+            MENUITEM "View as thumbnails",          ID_VIEW_THUMBNAILS
+            MENUITEM "Thumbnails with text",        ID_VIEW_THUMBTEXT
+            MENUITEM "View as tiled",               ID_VIEW_TILES
+        END
+        MENUITEM SEPARATOR
+        POPUP "Group by..."
+        BEGIN
+            MENUITEM "&Date",                       ID_GROUPBY_DATE, CHECKED
+            MENUITEM "&Title",                      ID_GROUPBY_TITLE
+            , INACTIVE
+        END
+        POPUP "Sort by..."
+        BEGIN
+            MENUITEM "&Date",                       ID_SORTBY_DATE, CHECKED
+            MENUITEM "Text",                        ID_SORTBY_TEXT, GRAYED
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "Show Table of Contents    ",  ID_VIEW_CONTENTS
+        MENUITEM SEPARATOR
+        MENUITEM "Update",                      ID_VIEW_UPDATE
+        MENUITEM "Select All",                  ID_VIEW_SELECTALL
+    END
+END
+
+IDM_SEARCHALL MENU DISCARDABLE 
+BEGIN
+    POPUP "Popup"
+    BEGIN
+        MENUITEM "Search in all elements in Gallery", ID_SEARCH_DROPDOWN
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_THUMBNAILS      "View images as thumbnails\nThumbnails"
+    ID_VIEW_THUMBTEXT       "View thumbnails with text\nThumbnails w. text"
+    ID_VIEW_TILES           "View list as tiled\nView Tiled"
+    ID_GROUPBY_DATE         "Group images by date\nGroup by Date"
+    ID_GROUPBY_TITLE        "Group images by text\nGroup by Text"
+    ID_SORTBY_DATE          "Sort images by date\nSort by Date"
+    ID_SORTBY_TEXT          "Sort images by text\nSort by Text"
+    ID_VIEW_CONTENTS        "Show or hide table of contents\nTable of Contents"
+    ID_VIEW_UPDATE          "Refresh images in list\nUpdate list"
+    ID_VIEW_SELECTALL       "Select all images in the list\nSelect All"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_SEARCH_DROPDOWN      "Show for images in the entire Gallery\nSearch All"
+END
+
+#endif    // Danish resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""atlres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST ""res\\\\PhotoThing.exe.manifest""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\PhotoThing.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 213, 153
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,156,132,50,14
+    CTEXT           "PhotoThing Application v1.0\n\n(c) Copyright 2007\nBjarke Viksoe\nwww.viksoe.dk",
+                    IDC_STATIC,25,57,78,77
+    ICON            IDR_MAINFRAME,IDC_STATIC,55,26,21,20
+    GROUPBOX        "",IDC_STATIC,7,7,115,139
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 206
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 146
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "viksoe.dk\0"
+            VALUE "FileDescription", "PhotoThing Module\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "PhotoThing\0"
+            VALUE "LegalCopyright", "Copyright 2007 Bjarke Viksøe\0"
+            VALUE "OriginalFilename", "PhotoThing.exe\0"
+            VALUE "ProductName", "PhotoThing Module\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "PhotoThing - Vista Photo Gallery UI"
+    IDS_IMAGEBACK           "Previous Image"
+    IDS_IMAGEFORWARD        "Next Image"
+    IDS_RUN                 "Run"
+    IDS_RESET               "Reset Zoom"
+    IDS_DELETE              "Delete"
+    IDS_ROTLEFT             "Rotate Left"
+    IDS_ROTRIGHT            "Rotate Right"
+    IDS_ZOOM                "Zoom"
+    IDS_BAR_FILE            "File"
+    IDS_BAR_EDIT            "Fix"
+    IDS_BAR_INFO            "Info"
+    IDS_BAR_PRINT           "Print"
+    IDS_BAR_EMAIL           "E-Mail"
+    IDS_BAR_BURN            "Burn"
+    IDS_TREE_PICTURESVIDEOS "All Pictures and Videos"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+    ID_FILE_PAGE_SETUP      "Change the printing options\nPage Setup"
+    ID_FILE_PRINT_SETUP     "Change the printer and printing options\nPrint Setup"
+    ID_FILE_PRINT           "Print the active document\nPrint"
+    ID_FILE_PRINT_PREVIEW   "Display full pages\nPrint Preview"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_TILE_VERT     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ATL_IDS_SCSIZE          "Change the window size"
+    ATL_IDS_SCMOVE          "Change the window position"
+    ATL_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    ATL_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    ATL_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    ATL_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    ATL_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ATL_IDS_SCRESTORE       "Restore the window to normal size"
+    ATL_IDS_SCTASKLIST      "Activate Task List"
+    ATL_IDS_MDICHILD        "Activate this window"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ATL_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ATL_IDS_MRU_FILE        "Open this document"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_TREE_PICTURES       "Pictures"
+    IDS_TREE_VIDEO          "Videos"
+    IDS_TREE_RECENTLYIMPORTED "Recently Imported"
+    IDS_TREE_TAGS           "Tags"
+    IDS_TREE_CREATETAG      "Create a New Tag"
+    IDS_TREE_NOTTAGGED      "Not Tagged"
+    IDS_TREE_RATINGS        "Ratings"
+    IDS_TREE_NOTRATED       "Not Rated"
+    IDS_TREE_FOLDERS        "Folders"
+    IDS_TREE_FOLDER_PICTURE "Pictures"
+    IDS_TREE_DATETAKEN      "Date Taken"
+    IDS_TREE_FOLDER_VIDEO   "Videos"
+    IDS_TREE_FOLDER_PUBPICTURE "Public Pictures"
+    IDS_TREE_FOLDER_PUBVIDEO "Public Videos"
+    IDS_SEARCH              "Search"
+    IDS_NOIMAGES            "%d items shown\nin this view.\n\nClick on a thumbnail in the list to select an image or video."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ADDKEYWORD          "Add Keywords"
+    IDS_KEYWORD_ANIMALS     "Animals"
+    IDS_KEYWORD_OCEAN       "Ocean"
+    IDS_KEYWORD_LANDSCAPES  "Landscapes"
+    IDS_STATUSBAR_SEL       "%d items, %d selected"
+    IDS_STATUSBAR_NOSEL     "%d items"
+    IDS_HELP                "Help"
+    IDS_NAVBACK             "Go back to previous screen"
+    IDS_NAVFORWARD          "Navigate forward"
+    IDS_BAR_MOVIE           "Make a Movie"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+//CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "res\\PhotoThing.exe.manifest"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

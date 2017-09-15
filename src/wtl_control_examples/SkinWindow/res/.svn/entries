@@ -1,0 +1,54 @@
+8
+
+dir
+1229
+svn://192.168.11.216/MMPlusClient/trunk/test/SkinWindow/res
+svn://192.168.11.216/MMPlusClient
+
+
+
+2007-06-25T17:11:23.463780Z
+70
+yu.xu
+
+
+svn:special svn:externals svn:needs-lock
+
+toolbar.bmp
+file
+
+
+
+
+2007-05-29T05:53:49.640625Z
+1c0183bfccc5eaa74b6346d85149a18c
+2007-06-25T17:11:23.463780Z
+70
+yu.xu
+has-props
+
+SkinWindow.exe.manifest
+file
+
+
+
+
+2007-05-29T05:53:49.640625Z
+297317df576b49cbe560184f48a4127e
+2007-06-25T17:11:23.463780Z
+70
+yu.xu
+
+SkinWindow.ico
+file
+
+
+
+
+2007-05-29T05:53:49.640625Z
+b0746b4e81eca92d02d5e88125e7ee59
+2007-06-25T17:11:23.463780Z
+70
+yu.xu
+has-props
+

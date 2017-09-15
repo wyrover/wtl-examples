@@ -1,0 +1,1298 @@
+// XuSkinWindow.cpp: implementation of the CXuSkinWindow class.
+//
+//////////////////////////////////////////////////////////////////////
+
+#include "stdafx.h"
+#include "../resource.h"
+#include "XuSkinWindow.h"
+
+//////////////////////////////////////////////////////////////////////
+// Construction/Destruction
+//////////////////////////////////////////////////////////////////////
+
+CXuSkinWindow::CXuSkinWindow()
+{
+    m_lptWndTitle = new TCHAR[_MAX_PATH];
+    memset(m_lptWndTitle, 0, _MAX_PATH);
+    m_winstate = 0;
+    m_bInit = FALSE;
+    m_downHitTest = 0;
+    m_moveHitTest = 0;
+}
+
+CXuSkinWindow::~CXuSkinWindow()
+{
+    if (m_lptWndTitle) delete[] m_lptWndTitle;
+
+    if (m_bmpTitle) m_bmpTitle.DeleteObject();
+
+    if (m_bmpLeftBorder) m_bmpLeftBorder.DeleteObject();
+
+    if (m_bmpRightBorder) m_bmpRightBorder.DeleteObject();
+
+    if (m_bmpBottomBorder) m_bmpBottomBorder.DeleteObject();
+
+    if (m_bmpMaxBtn) m_bmpMaxBtn.DeleteObject();
+
+    if (m_bmpRestoreBtn) m_bmpRestoreBtn.DeleteObject();
+
+    if (m_bmpMinBtn) m_bmpMinBtn.DeleteObject();
+
+    if (m_bmpCloseBtn) m_bmpCloseBtn.DeleteObject();
+}
+/************************************************************************/
+/*
+/* 子类化窗口
+/*
+/************************************************************************/
+void CXuSkinWindow::EnableWindowFrame(HWND hWnd)
+{
+    _ASSERTE(hWnd);
+    SubclassWindow(hWnd);
+    _Init();
+    DWORD dwStyle = ::GetWindowLong(m_hWnd, GWL_STYLE);
+    m_maxable = dwStyle & WS_MAXIMIZEBOX;
+    m_sizable = dwStyle & WS_SIZEBOX;
+    m_minable = dwStyle & WS_MINIMIZEBOX;
+    dwStyle &= ~WS_MINIMIZEBOX;
+    dwStyle &= ~WS_MAXIMIZEBOX;
+    dwStyle &= ~WS_SYSMENU;
+    ::SetWindowLong(m_hWnd, GWL_STYLE, dwStyle);
+}
+
+/************************************************************************/
+/*
+/* 加载图片资源文件，设置大小、位置等信息
+/*
+/************************************************************************/
+BOOL CXuSkinWindow::_Init()
+{
+    BOOL bRetVal = TRUE;
+
+    if (m_bInit) {
+        if (m_bmpTitle) m_bmpTitle.DeleteObject();
+
+        if (m_bmpLeftBorder) m_bmpLeftBorder.DeleteObject();
+
+        if (m_bmpRightBorder) m_bmpRightBorder.DeleteObject();
+
+        if (m_bmpBottomBorder) m_bmpBottomBorder.DeleteObject();
+
+        if (m_bmpMaxBtn) m_bmpMaxBtn.DeleteObject();
+
+        if (m_bmpRestoreBtn) m_bmpRestoreBtn.DeleteObject();
+
+        if (m_bmpMinBtn) m_bmpMinBtn.DeleteObject();
+
+        if (m_bmpCloseBtn) m_bmpCloseBtn.DeleteObject();
+
+        m_bInit = FALSE;
+    }
+
+    TCHAR* lptValue = new TCHAR[_MAX_PATH];
+    memset(lptValue, 0, _MAX_PATH);
+    //图片MASK颜色值
+    COLORREF crMask = CSkinManager::Init()->GetColor(_T("General"), _T("ColorMask"), RGB(255, 0, 255));
+    //窗口框架标题栏背景图
+    CSkinManager::Init()->GetPicturePath(_T("FrameParams"), _T("Title"), lptValue, _MAX_PATH);
+
+    if (!m_bmpTitle.LoadBitmap(lptValue, crMask)) bRetVal = FALSE;
+
+    //窗口左边框
+    CSkinManager::Init()->GetPicturePath(_T("FrameParams"), _T("LeftBorder"), lptValue, _MAX_PATH);
+
+    if (!m_bmpLeftBorder.LoadBitmap(lptValue, crMask)) bRetVal = FALSE;
+
+    //窗口右边框
+    CSkinManager::Init()->GetPicturePath(_T("FrameParams"), _T("RightBorder"), lptValue, _MAX_PATH);
+
+    if (!m_bmpRightBorder.LoadBitmap(lptValue, crMask)) bRetVal = FALSE;
+
+    //窗口底边框
+    CSkinManager::Init()->GetPicturePath(_T("FrameParams"), _T("BottomBorder"), lptValue, _MAX_PATH);
+
+    if (!m_bmpBottomBorder.LoadBitmap(lptValue, crMask)) bRetVal = FALSE;
+
+    //尺寸计算参数
+    m_titleoff1 = CSkinManager::Init()->GetInt(_T("FrameParams"), _T("TopTopHeight"), 0);
+    m_titleoff2 = m_bmpTitle.Width() - CSkinManager::Init()->GetInt(_T("FrameParams"), _T("TopBotHeight"), 0);
+
+    if (m_titleoff2 <= m_titleoff1)
+        m_titleoff2 = m_titleoff1 + 1;
+
+    m_leftoff1 = CSkinManager::Init()->GetInt(_T("FrameParams"), _T("LeftTopHeight"), 0);
+    m_leftoff2 = m_bmpLeftBorder.Height() - CSkinManager::Init()->GetInt(_T("FrameParams"), _T("LeftBotHeight"), 0);
+
+    if (m_leftoff2 <= m_leftoff1)
+        m_leftoff2 = m_leftoff1 + 1;
+
+    m_rightoff1 = CSkinManager::Init()->GetInt(_T("FrameParams"), _T("RightTopHeight"), 0);
+    m_rightoff2 = m_bmpRightBorder.Height() - CSkinManager::Init()->GetInt(_T("FrameParams"), _T("RightBotHeight"), 0);
+
+    if (m_rightoff2 <= m_rightoff1)
+        m_rightoff2 = m_rightoff1 + 1;
+
+    m_bottomoff1 = CSkinManager::Init()->GetInt(_T("FrameParams"), _T("BottomTopHeight"), 0);
+    m_bottomoff2 = m_bmpBottomBorder.Width() - CSkinManager::Init()->GetInt(_T("FrameParams"), _T("BottomBotHeight"), 0);
+
+    if (m_bottomoff2 <= m_bottomoff1)
+        m_bottomoff2 = m_bottomoff1 + 1;
+
+    //边框与标题宽、高度
+    m_TitleHeight = m_bmpTitle.Height() / 2;
+    m_BorderLeftWidth = m_bmpLeftBorder.Width() / 2;
+    m_BorderRightWidth = m_bmpRightBorder.Width() / 2;
+    m_BorderBottomHeight = m_bmpBottomBorder.Height() / 2;
+    //窗口框架的最大化、最小化、关闭等按钮
+    int count = CSkinManager::Init()->GetInt(_T("FrameParams"), _T("ButtonCount"), 0);
+    int icount = CSkinManager::Init()->GetInt(_T("FrameParams"), _T("ButtonImgCount"), 0);
+    CString sec;
+    int action = 0, x = 0, y = 0, state = 0;
+
+    for (int i = 0; i < count; i++) {
+        sec.Format(TEXT("FrameButton%d"), i);
+        CSkinManager::Init()->GetPicturePath(sec, _T("ButtonImage"), lptValue, _MAX_PATH);
+        action = CSkinManager::Init()->GetInt(sec, _T("Type"), 0);
+        x = CSkinManager::Init()->GetInt(sec, _T("XCoord"), 0);
+        y = CSkinManager::Init()->GetInt(sec, _T("YCoord"), 0);
+        state = icount;
+
+        if (action == 0) {
+            //关闭按钮
+            if (!m_bmpCloseBtn.LoadBitmap(lptValue, crMask)) bRetVal = FALSE;
+
+            m_rectCloseBtn = CRect(x - m_bmpCloseBtn.Width() / state, y, x, y + m_bmpCloseBtn.Height() / 2);
+        }
+
+        if (action == 2) {
+            //最小化按钮
+            if (!m_bmpMinBtn.LoadBitmap(lptValue, crMask)) bRetVal = FALSE;
+
+            m_rectMinBtn = CRect(x - m_bmpMinBtn.Width() / state, y, x, y + m_bmpMinBtn.Height() / 2);
+        }
+
+        if (action == 1) {
+            if (!m_bmpMaxBtn.m_hBitmap) {
+                //最大化按钮
+                if (!m_bmpMaxBtn.LoadBitmap(lptValue, crMask)) bRetVal = FALSE;
+
+                m_rectMaxBtn = CRect(x - m_bmpMaxBtn.Width() / state, y, x , y + m_bmpMaxBtn.Height() / 2);
+            } else {
+                //还原按钮
+                if (!m_bmpRestoreBtn.LoadBitmap(lptValue, crMask)) bRetVal = FALSE;
+
+                m_rectRestoreBtn = CRect(x - m_bmpRestoreBtn.Width() / state, y, x , y + m_bmpRestoreBtn.Height() / 2);
+            }
+        }
+    }
+
+    //窗口标题文字颜色
+    m_colTitle1 = CSkinManager::Init()->GetColor(_T("FrameParams"), _T("TextColorActive"), RGB(21, 66, 139));
+    m_colTitle2 = CSkinManager::Init()->GetColor(_T("FrameParams"), _T("TextColorInactive"), RGB(160, 160, 160));
+    //窗口标题文字左偏移距离
+    m_textShift = CSkinManager::Init()->GetInt(_T("General"), _T("TextShift"), 30);
+    //窗口标题文字上偏移距离
+    m_textShiftVer = CSkinManager::Init()->GetInt(_T("General"), _T("TextShiftVert"), 0);
+    //是否使用背景透明
+    m_bTrans = CSkinManager::Init()->GetBool(_T("General"), _T("EnableTransparency"), TRUE);
+
+    if (m_bTrans) m_colTrans = crMask;
+
+    delete[] lptValue;
+    return bRetVal;
+}
+
+BOOL CXuSkinWindow::ChangeSkin(LPCTSTR lpctSkinName)
+{
+    CSkinManager::Init()->ChangeSkin(lpctSkinName);
+    return _Init();
+}
+
+// BOOL CXuSkinWindow::LoadSkin(LPCTSTR lpctSkinFilePath)
+// {
+//  BOOL bRetVal = TRUE;
+//
+//  if(lpctSkinFilePath == NULL || GetFileAttributes(lpctSkinFilePath) == 0xFFFFFFFF)
+//      return FALSE;
+//
+//  TCHAR* szLocalSkingFilePath = new TCHAR[_MAX_PATH];
+//  memset(szLocalSkingFilePath,0,_MAX_PATH);
+//  _tcscpy(szLocalSkingFilePath, lpctSkinFilePath);
+//  size_t nLen = _tcslen(szLocalSkingFilePath);
+//  if(szLocalSkingFilePath[nLen] != '\\') _tcscat(szLocalSkingFilePath,_T("\\"));
+//
+//  TCHAR* szDynamicString = new TCHAR[_MAX_PATH];
+//  TCHAR* paraString = new TCHAR[_MAX_PATH];
+//
+//  //设置皮肤文件INI文件路径
+//  _tcscpy(szDynamicString,szLocalSkingFilePath);
+//  _tcscat(szDynamicString,_T("theme.ini"));
+//  m_skinINI.SetPathName(szDynamicString);
+//
+//  if( m_bInit )
+//  {
+//      if(m_bmpTitle) m_bmpTitle.DeleteObject();
+//      if(m_bmpLeftBorder) m_bmpLeftBorder.DeleteObject();
+//      if(m_bmpRightBorder) m_bmpRightBorder.DeleteObject();
+//      if(m_bmpBottomBorder) m_bmpBottomBorder.DeleteObject();
+//      if(m_bmpMaxBtn) m_bmpMaxBtn.DeleteObject();
+//      if(m_bmpRestoreBtn) m_bmpRestoreBtn.DeleteObject();
+//      if(m_bmpMinBtn) m_bmpMinBtn.DeleteObject();
+//      if(m_bmpCloseBtn) m_bmpCloseBtn.DeleteObject();
+//
+//      m_bInit = FALSE;
+//  }
+//
+//  //图片MASK颜色值
+//  COLORREF crMask = m_skinINI.GetColor(_T("General"),_T("ColorMask"),RGB(255,0,255));
+//
+//  memset(paraString,0,_MAX_PATH);
+//  memset(szDynamicString,0,_MAX_PATH);
+//  _tcscpy(szDynamicString,szLocalSkingFilePath);
+//  //窗口框架标题栏背景图
+//  m_skinINI.GetString(_T("FrameParams"),_T("Title"),paraString,_MAX_PATH);
+//  _tcscat(szDynamicString,paraString);
+//  if(!m_bmpTitle.LoadBitmap(szDynamicString,crMask)) bRetVal = FALSE;
+//
+//  memset(paraString,0,_MAX_PATH);
+//  memset(szDynamicString,0,_MAX_PATH);
+//  _tcscpy(szDynamicString,szLocalSkingFilePath);
+//  //窗口左边框
+//  m_skinINI.GetString(_T("FrameParams"),_T("LeftBorder"),paraString,_MAX_PATH);
+//  _tcscat(szDynamicString,paraString);
+//  if(!m_bmpLeftBorder.LoadBitmap(szDynamicString,crMask)) bRetVal = FALSE;
+//
+//  memset(paraString,0,_MAX_PATH);
+//  memset(szDynamicString,0,_MAX_PATH);
+//  _tcscpy(szDynamicString,szLocalSkingFilePath);
+//  //窗口右边框
+//  m_skinINI.GetString(_T("FrameParams"),_T("RightBorder"),paraString,_MAX_PATH);
+//  _tcscat(szDynamicString,paraString);
+//  if(!m_bmpRightBorder.LoadBitmap(szDynamicString,crMask)) bRetVal = FALSE;
+//
+//  memset(paraString,0,_MAX_PATH);
+//  memset(szDynamicString,0,_MAX_PATH);
+//  _tcscpy(szDynamicString,szLocalSkingFilePath);
+//  //窗口底边框
+//  m_skinINI.GetString(_T("FrameParams"),_T("BottomBorder"),paraString,_MAX_PATH);
+//  _tcscat(szDynamicString,paraString);
+//  if(!m_bmpBottomBorder.LoadBitmap(szDynamicString,crMask)) bRetVal = FALSE;
+//
+//  //尺寸计算参数
+//  m_titleoff1 = m_skinINI.GetInt(_T("FrameParams"),_T("TopTopHeight"),0);
+//  m_titleoff2 = m_bmpTitle.Width() - m_skinINI.GetInt(_T("FrameParams"),_T("TopBotHeight"),0);
+//  if ( m_titleoff2 <= m_titleoff1 )
+//      m_titleoff2 = m_titleoff1 + 1;
+//
+//  m_leftoff1 = m_skinINI.GetInt(_T("FrameParams"),_T("LeftTopHeight"),0);
+//  m_leftoff2 = m_bmpLeftBorder.Height() - m_skinINI.GetInt(_T("FrameParams"),_T("LeftBotHeight"),0);
+//  if ( m_leftoff2 <= m_leftoff1 )
+//      m_leftoff2 = m_leftoff1 + 1;
+//
+//  m_rightoff1 = m_skinINI.GetInt(_T("FrameParams"),_T("RightTopHeight"),0);
+//  m_rightoff2 = m_bmpRightBorder.Height() - m_skinINI.GetInt(_T("FrameParams"),_T("RightBotHeight"),0);
+//  if ( m_rightoff2 <= m_rightoff1 )
+//      m_rightoff2 = m_rightoff1 + 1;
+//
+//  m_bottomoff1 = m_skinINI.GetInt(_T("FrameParams"),_T("BottomTopHeight"),0);
+//  m_bottomoff2 = m_bmpBottomBorder.Width() - m_skinINI.GetInt(_T("FrameParams"),_T("BottomBotHeight"),0);
+//  if ( m_bottomoff2 <= m_bottomoff1 )
+//      m_bottomoff2 = m_bottomoff1 + 1;
+//
+//  //边框与标题宽、高度
+//  m_TitleHeight = m_bmpTitle.Height()/2;
+//  m_BorderLeftWidth = m_bmpLeftBorder.Width()/2;
+//  m_BorderRightWidth = m_bmpRightBorder.Width()/2;
+//  m_BorderBottomHeight = m_bmpBottomBorder.Height()/2;
+//
+//  //窗口框架的最大化、最小化、关闭等按钮
+//  int count = m_skinINI.GetInt(_T("FrameParams"),_T("ButtonCount"),0);
+//  int icount = m_skinINI.GetInt(_T("FrameParams"),_T("ButtonImgCount"),0);
+//  CString sec;
+//  int action=0,x=0,y=0,state=0;
+//  for ( int i = 0; i < count; i++ )
+//  {
+//      sec.Format( "FrameButton%d", i );
+//      memset(paraString,0,_MAX_PATH);
+//      m_skinINI.GetString(sec,_T("ButtonImage"),paraString,_MAX_PATH,_T(""));
+//      action = m_skinINI.GetInt(sec,_T("Type"),0);
+//      x = m_skinINI.GetInt(sec,_T("XCoord"),0);
+//      y = m_skinINI.GetInt(sec,_T("YCoord"),0);
+//
+//      memset(szDynamicString,0,_MAX_PATH);
+//      _tcscpy(szDynamicString,szLocalSkingFilePath);
+//      _tcscat(szDynamicString,paraString);
+//
+//      state = icount;
+//      if( action == 0 )
+//      {
+//          //关闭按钮
+//          if (!m_bmpCloseBtn.LoadBitmap(szDynamicString,crMask) ) bRetVal = FALSE;
+//          m_rectCloseBtn = CRect( x-m_bmpCloseBtn.Width()/state, y, x, y + m_bmpCloseBtn.Height()/2 );
+//      }
+//      if( action == 2 )
+//      {
+//          //最小化按钮
+//          if ( !m_bmpMinBtn.LoadBitmap(szDynamicString,crMask) ) bRetVal = FALSE;
+//          m_rectMinBtn = CRect( x-m_bmpMinBtn.Width()/state, y, x, y + m_bmpMinBtn.Height()/2 );
+//      }
+//      if( action == 1 )
+//      {
+//          if( !m_bmpMaxBtn.m_hBitmap )
+//          {
+//              //最大化按钮
+//              if ( !m_bmpMaxBtn.LoadBitmap(szDynamicString,crMask) ) bRetVal = FALSE;
+//              m_rectMaxBtn = CRect( x-m_bmpMaxBtn.Width()/state, y, x , y + m_bmpMaxBtn.Height()/2 );
+//          }
+//          else
+//          {
+//              //还原按钮
+//              if ( !m_bmpRestoreBtn.LoadBitmap(szDynamicString,crMask) ) bRetVal = FALSE;
+//              m_rectRestoreBtn = CRect( x-m_bmpRestoreBtn.Width()/state, y, x , y + m_bmpRestoreBtn.Height()/2 );
+//          }
+//      }
+//  }
+//
+//  //窗口标题文字颜色
+//  m_colTitle1 = m_skinINI.GetColor(_T("FrameParams"),_T("TextColorActive"),RGB(21,66,139));
+//  m_colTitle2 = m_skinINI.GetColor(_T("FrameParams"),_T("TextColorInactive"),RGB(160,160,160));
+//  //窗口标题文字左偏移距离
+//  m_textShift = m_skinINI.GetInt(_T("General"),_T("TextShift"),30);
+//  //窗口标题文字上偏移距离
+//  m_textShiftVer = m_skinINI.GetInt(_T("General"),_T("TextShiftVert"),0);
+//  //是否使用背景透明
+//  m_bTrans = m_skinINI.GetBool(_T("General"),_T("EnableTransparency"),TRUE);
+//  if(m_bTrans) m_colTrans = crMask;
+//
+//  //清理申请的内存
+//  if(szLocalSkingFilePath) delete[] szLocalSkingFilePath;
+//  if(szDynamicString) delete[] szDynamicString;
+//  if(paraString) delete[] paraString;
+//
+//  return bRetVal;
+// }
+
+// BOOL CXuSkinWindow::LoadSkin(HMODULE hInst/* =NULL */, COLORREF crBack/* =0 */)
+// {
+//  if ( m_bInit )
+//  {
+//      m_bmpTitle.DeleteObject();
+//      m_bmpLeftBorder.DeleteObject();
+//      m_bmpRightBorder.DeleteObject();
+//      m_bmpBottomBorder.DeleteObject();
+//      m_bmpMaxBtn.DeleteObject();
+//      m_bmpRestoreBtn.DeleteObject();
+//      m_bmpMinBtn.DeleteObject();
+//      m_bmpCloseBtn.DeleteObject();
+//
+//      m_bInit = FALSE;
+//  }
+//
+//  if(!m_bmpTitle.LoadBitmap(IDB_FRAME_TITLE, hInst, crBack)) return FALSE;
+//  if(!m_bmpLeftBorder.LoadBitmap(IDB_FRAME_BORDERLEFT, hInst, crBack)) return FALSE;
+//  if(!m_bmpRightBorder.LoadBitmap(IDB_FRAME_BORDERRIGHT, hInst, crBack)) return FALSE;
+//  if(!m_bmpBottomBorder.LoadBitmap(IDB_FRAME_BORDERBOTTOM, hInst, crBack)) return FALSE;
+//
+//  if(!m_bmpCloseBtn.LoadBitmap(IDB_WNDBTN_CLOSE, hInst, crBack)) return FALSE;
+//  if(!m_bmpRestoreBtn.LoadBitmap(IDB_WNDBTN_RESTORE, hInst, crBack)) return FALSE;
+//  if(!m_bmpMinBtn.LoadBitmap(IDB_WNDBTN_MIN, hInst, crBack)) return FALSE;
+//  if(!m_bmpMaxBtn.LoadBitmap(IDB_WNDBTN_MAX, hInst, crBack)) return FALSE;
+//
+//  int state = 3;
+//  int nBtnYPos = 4;
+//  m_rectCloseBtn = CRect( 26-m_bmpCloseBtn.Width()/state, nBtnYPos, 26 , nBtnYPos + m_bmpCloseBtn.Height() );
+//  m_rectMinBtn = CRect( 66-m_bmpMinBtn.Width()/state, nBtnYPos, 66, nBtnYPos + m_bmpMinBtn.Height() );
+//  m_rectMaxBtn = CRect( 46-m_bmpMaxBtn.Width()/state, nBtnYPos, 46 , nBtnYPos + m_bmpMaxBtn.Height() );
+//  m_rectRestoreBtn = CRect( 46-m_bmpRestoreBtn.Width()/state, nBtnYPos, 46 , nBtnYPos + m_bmpRestoreBtn.Height() );
+//
+//  m_titleoff1 = 40;
+//  m_titleoff2 = m_bmpTitle.Width() - 60;
+//  if ( m_titleoff2 <= m_titleoff1 )
+//      m_titleoff2 = m_titleoff1 + 1;
+//
+//  m_leftoff1 = 29;
+//  m_leftoff2 = m_bmpLeftBorder.Height() - 8;
+//  if ( m_leftoff2 <= m_leftoff1 )
+//      m_leftoff2 = m_leftoff1 + 1;
+//
+//  m_rightoff1 = 29;
+//  m_rightoff2 = m_bmpRightBorder.Height() - 8;
+//  if ( m_rightoff2 <= m_rightoff1 )
+//      m_rightoff2 = m_rightoff1 + 1;
+//
+//  m_bottomoff1 = 0;
+//  m_bottomoff2 = m_bmpBottomBorder.Width() - 0;
+//  if ( m_bottomoff2 <= m_bottomoff1 )
+//      m_bottomoff2 = m_bottomoff1 + 1;
+//
+//  m_TitleHeight = m_bmpTitle.Height()/2;
+//  m_BorderLeftWidth = m_bmpLeftBorder.Width()/2;
+//  m_BorderRightWidth = m_bmpRightBorder.Width()/2;
+//  m_BorderBottomHeight = m_bmpBottomBorder.Height()/2;
+//
+//  m_colTitle1 = RGB(21,66,139);   //Active
+//  m_colTitle2 = RGB(160,160,160); //Inactive
+//
+//  m_textShift = 30;
+//  m_textShiftVer = 0;
+//
+//  m_bTrans = TRUE;
+//  if(m_bTrans) m_colTrans = RGB(255,0,255);
+//
+//  return TRUE;
+// }
+/************************************************************************/
+/*
+/* 绘制窗口框架
+/*
+/************************************************************************/
+BOOL CXuSkinWindow::DrawFrame(CDC *pDC, int x, int y, int w, int h, int state, int title)
+{
+    DrawTitle(pDC, x + 3 , y, w - 6 + 1, state);
+    DrawLeft(pDC, x, y, h, state);
+    DrawRight(pDC, x + w - m_BorderRightWidth , y, h, state);
+    DrawBottom(pDC, x + m_BorderLeftWidth,
+               y + h - m_BorderBottomHeight, w - m_BorderRightWidth - m_BorderLeftWidth, state);
+    return TRUE;
+}
+/************************************************************************/
+/*
+/*  绘制窗口标题栏
+/*  方法：先绘制左边一定长度，然后根据动态数值绘制中间的部分（拉伸），最后绘制右边部分，其他函数类似
+/*
+/************************************************************************/
+BOOL CXuSkinWindow::DrawTitle(CDC *pDC, int x, int y, int w, int state)
+{
+    int padding;
+    int ox = x;
+    padding = (w - m_bmpTitle.Width()) / (m_titleoff2 - m_titleoff1) + 1 ;
+
+    if (padding < 0) padding = 0;
+
+    RECT sr;
+
+    if (state == 0)
+        sr = CRect(0, 0, m_titleoff1, m_TitleHeight);
+    else
+        sr = CRect(0, m_TitleHeight, m_titleoff1, m_bmpTitle.Height());
+
+    m_bmpTitle.Draw(pDC, x, y, &sr);
+    x += m_titleoff1;
+
+    if (state == 0)
+        sr = CRect(m_titleoff1, 0, m_titleoff2, m_TitleHeight);
+    else
+        sr = CRect(m_titleoff1, m_TitleHeight, m_titleoff2, m_bmpTitle.Height());
+
+    for (int i = 0; i <= padding; i++, x += m_titleoff2 - m_titleoff1) {
+        int d = (x + m_titleoff2 - m_titleoff1 - ox - w);
+
+        if (d > 0)
+            sr.right = sr.right - d;
+
+        m_bmpTitle.Draw(pDC, x, y, &sr);
+    }
+
+    x = ox + w - (m_bmpTitle.Width() - m_titleoff2) + 1 ;
+
+    if (state == 0)
+        sr = CRect(m_titleoff2, 0, m_bmpTitle.Width() - 1, m_TitleHeight);
+    else
+        sr = CRect(m_titleoff2, m_TitleHeight, m_bmpTitle.Width() - 1, m_bmpTitle.Height());
+
+    m_bmpTitle.Draw(pDC, x, y, &sr);
+    return TRUE;
+}
+/************************************************************************/
+/*
+/* 绘制窗口左边框
+/*
+/************************************************************************/
+BOOL CXuSkinWindow::DrawLeft(CDC *pDC, int x, int y, int h, int state)
+{
+    int padding;
+    int oy = y;
+    padding = (h - m_bmpLeftBorder.Height()) / (m_leftoff2 - m_leftoff1) + 1 ;
+
+    if (padding < 0) padding = 0;
+
+    RECT sr;
+
+    if (state == 0)
+        sr = CRect(0, 0, m_BorderLeftWidth, m_leftoff1);
+    else
+        sr = CRect(m_BorderLeftWidth, 0, m_bmpLeftBorder.Width(), m_leftoff1);
+
+    m_bmpLeftBorder.Draw(pDC, x, y, &sr);
+    y += m_leftoff1;
+
+    if (state == 0)
+        sr = CRect(0, m_leftoff1,  m_BorderLeftWidth, m_leftoff2);
+    else
+        sr = CRect(m_BorderLeftWidth, m_leftoff1, m_bmpLeftBorder.Width(), m_leftoff2);
+
+    for (int i = 0; i <= padding; i++, y += m_leftoff2 - m_leftoff1) {
+        int d = (y + m_leftoff2 - m_leftoff1 - oy - h);
+
+        if (d > 0)
+            sr.bottom = sr.bottom - d;
+
+        m_bmpLeftBorder.Draw(pDC, x, y, &sr);
+    }
+
+    y = oy + h - (m_bmpLeftBorder.Height() - m_leftoff2) ;
+
+    if (state == 0)
+        sr = CRect(0, m_leftoff2, m_BorderLeftWidth, m_bmpLeftBorder.Height());
+    else
+        sr = CRect(m_BorderLeftWidth, m_leftoff2,  m_bmpLeftBorder.Width(), m_bmpLeftBorder.Height());
+
+    m_bmpLeftBorder.Draw(pDC, x, y, &sr);
+    return TRUE;
+}
+/************************************************************************/
+/*
+/* 绘制窗口右边框
+/*
+/************************************************************************/
+BOOL CXuSkinWindow::DrawRight(CDC *pDC, int x, int y, int h, int state)
+{
+    int padding;
+    int oy = y;
+    padding = (h - m_bmpRightBorder.Height()) / (m_rightoff2 - m_rightoff1) + 1 ;
+
+    if (padding < 0) padding = 0;
+
+    RECT sr;
+
+    if (state == 0)
+        sr = CRect(0, 0, m_BorderRightWidth, m_rightoff1);
+    else
+        sr = CRect(m_BorderRightWidth, 0, m_bmpRightBorder.Width(), m_rightoff1);
+
+    m_bmpRightBorder.Draw(pDC, x, y, &sr);
+    y += m_rightoff1;
+
+    if (state == 0)
+        sr = CRect(0, m_rightoff1,  m_BorderRightWidth, m_rightoff2);
+    else
+        sr = CRect(m_BorderRightWidth, m_rightoff1, m_bmpRightBorder.Width(), m_rightoff2);
+
+    for (int i = 0; i <= padding; i++, y += m_rightoff2 - m_rightoff1) {
+        int d = (y + m_rightoff2 - m_rightoff1 - oy - h);
+
+        if (d > 0)
+            sr.bottom = sr.bottom - d;
+
+        m_bmpRightBorder.Draw(pDC, x, y, &sr);
+    }
+
+    y = oy + h - (m_bmpRightBorder.Height() - m_rightoff2) ;
+
+    if (state == 0)
+        sr = CRect(0, m_rightoff2, m_BorderRightWidth, m_bmpRightBorder.Height());
+    else
+        sr = CRect(m_BorderRightWidth, m_rightoff2,  m_bmpRightBorder.Width(), m_bmpRightBorder.Height());
+
+    m_bmpRightBorder.Draw(pDC, x, y, &sr);
+    return TRUE;
+}
+/************************************************************************/
+/*
+/* 绘制窗口底框
+/*
+/************************************************************************/
+BOOL CXuSkinWindow::DrawBottom(CDC *pDC, int x, int y, int w, int state)
+{
+    int padding;
+    int ox = x;
+    padding = (w - m_bmpBottomBorder.Width()) / (m_bottomoff2 - m_bottomoff1) + 1 ;
+
+    if (padding < 0) padding = 0;
+
+    RECT sr;
+
+    if (state == 0)
+        sr = CRect(0, 0, m_bottomoff1, m_BorderBottomHeight);
+    else
+        sr = CRect(0, m_BorderBottomHeight, m_bottomoff1, m_bmpBottomBorder.Height());
+
+    m_bmpBottomBorder.Draw(pDC, x, y, &sr);
+    x += m_bottomoff1;
+
+    if (state == 0)
+        sr = CRect(m_bottomoff1, 0, m_bottomoff2, m_BorderBottomHeight);
+    else
+        sr = CRect(m_bottomoff1, m_BorderBottomHeight, m_bottomoff2, m_bmpBottomBorder.Height());
+
+    for (int i = 0; i <= padding; i++, x += m_bottomoff2 - m_bottomoff1) {
+        int d = (x + m_bottomoff2 - m_bottomoff1 - ox - w);
+
+        if (d > 0)
+            sr.right = sr.right - d;
+
+        m_bmpBottomBorder.Draw(pDC, x, y, &sr);
+    }
+
+    x = ox + w - (m_bmpBottomBorder.Width() - m_bottomoff2);
+
+    if (state == 0)
+        sr = CRect(m_bottomoff2, 0, m_bmpBottomBorder.Width() - 1, m_BorderBottomHeight);
+    else
+        sr = CRect(m_bottomoff2, m_BorderBottomHeight, m_bmpBottomBorder.Width() - 1, m_bmpBottomBorder.Height());
+
+    m_bmpBottomBorder.Draw(pDC, x, y, &sr);
+    return TRUE;
+}
+//////////////////////////////////////////////////////////////////////////
+//
+//  DrawButton：绘制按钮
+//
+//  参数：
+//      pDC - 设备上下文指针，在该指针指定的设备上进行绘制
+//      i - 按钮类型（=0关闭，=1最大化或还原，=2最小化）
+//      state - 按钮状态（=1，鼠标按下，=2鼠标悬浮，=0正常状态）
+//  返回值
+//      布尔值，TRUE表示成功，FALSE表示失败
+//
+//////////////////////////////////////////////////////////////////////////
+BOOL CXuSkinWindow::DrawButton(CDC * pDC, int i, int state)
+{
+    int iBtnYOff = 0, iBtnDynamicHeight = 0;
+
+    if (i == 0) {
+        if (m_bmpCloseBtn.m_hBitmap) {
+            CRect r = GetButtonRect(0);
+
+            if (!m_bActive) {
+                iBtnYOff = m_bmpCloseBtn.Height() / 2;
+                iBtnDynamicHeight = m_bmpCloseBtn.Height();
+            } else
+                iBtnDynamicHeight = m_bmpCloseBtn.Height() / 2;
+
+            m_bmpCloseBtn.Draw(pDC, r.left, r.top,
+                               CRect(state * r.Width(), iBtnYOff, (state + 1) * r.Width(), iBtnDynamicHeight), m_colTrans, m_bTrans);
+        }
+    }
+
+    if (i == 1) {
+        CRect r = GetButtonRect(1);
+
+        if (m_maxable && m_bmpMaxBtn.m_hBitmap)
+            if (m_winstate == 1 && m_bmpRestoreBtn.m_hBitmap) {
+                if (!m_bActive) {
+                    iBtnYOff = m_bmpRestoreBtn.Height() / 2;
+                    iBtnDynamicHeight = m_bmpRestoreBtn.Height();
+                } else
+                    iBtnDynamicHeight = m_bmpRestoreBtn.Height() / 2;
+
+                m_bmpRestoreBtn.Draw(pDC, r.left, r.top,
+                                     CRect(state * r.Width(), iBtnYOff, (state + 1) * r.Width(), iBtnDynamicHeight), m_colTrans, m_bTrans);
+            } else {
+                if (!m_bActive) {
+                    iBtnYOff = m_bmpMaxBtn.Height() / 2;
+                    iBtnDynamicHeight = m_bmpMaxBtn.Height();
+                } else
+                    iBtnDynamicHeight = m_bmpMaxBtn.Height() / 2;
+
+                m_bmpMaxBtn.Draw(pDC, r.left, r.top,
+                                 CRect(state * r.Width(), iBtnYOff, (state + 1) * r.Width(), iBtnDynamicHeight) , m_colTrans, m_bTrans);
+            }
+    }
+
+    if (i == 2) {
+        if (m_minable && m_bmpMinBtn.m_hBitmap) {
+            CRect r = GetButtonRect(2);
+
+            if (!m_bActive) {
+                iBtnYOff = m_bmpMinBtn.Height() / 2;
+                iBtnDynamicHeight = m_bmpMinBtn.Height();
+            } else
+                iBtnDynamicHeight = m_bmpMinBtn.Height() / 2;
+
+            m_bmpMinBtn.Draw(pDC, r.left, r.top,
+                             CRect(state * r.Width(), iBtnYOff, (state + 1) * r.Width(), iBtnDynamicHeight) , m_colTrans, m_bTrans);
+        }
+    }
+
+    return TRUE;
+}
+/************************************************************************/
+/*
+/* 窗口的非客户区重绘函数
+/*
+/************************************************************************/
+void CXuSkinWindow::OnNcPaint(HRGN rgnFrame)
+{
+    CWindowDC dc(m_hWnd);
+    CRect wc;
+    GetWindowRect(&wc);
+    int nState = 0;
+
+    if (m_bActive) nState = 0;
+    else nState = 1;
+
+    dc.ExcludeClipRect(0, 0, wc.Width(), m_TitleHeight);
+    DrawFrame(&dc, 0, 0, wc.Width(), wc.Height(), nState, 0);
+    dc.SelectClipRgn(NULL);
+    CDC memDC, *pNewDC;
+    CXuBitmap bmp;
+    HBITMAP hOldBitmap = NULL;
+    memDC.CreateCompatibleDC(dc.m_hDC);
+    bmp.CreateCompatibleBitmap(dc.m_hDC, wc.Width(), m_TitleHeight);
+    hOldBitmap = memDC.SelectBitmap(bmp.m_hBitmap);
+    pNewDC = &memDC;
+    DrawTitle(pNewDC, m_BorderLeftWidth, 0, wc.Width() - m_BorderRightWidth - m_BorderLeftWidth + 1, nState);
+    DrawLeft(pNewDC, 0, 0, m_bmpLeftBorder.Height(), nState);
+    DrawRight(pNewDC, wc.Width() - m_BorderRightWidth, 0, m_bmpRightBorder.Height(), nState);
+
+//  CRgn newrgn;
+//  newrgn.CreateRectRgn(0,0,wc.Width(),wc.Height());
+//  if(m_bTrans)
+//  {
+//      CRgn rgn;
+//      rgn.CreateRectRgn( 0, m_TitleHeight, wc.Width(), wc.Height() );
+//      HRGN hrgn = bmp.CreateRgnFromFile( m_colTrans );
+//      newrgn.CombineRgn( rgn.m_hRgn, hrgn, RGN_XOR );
+//      dc.SelectClipRgn( newrgn.m_hRgn );
+//      rgn.DeleteObject();
+//  }
+//  else
+//      SetWindowRgn(newrgn,NULL);
+
+    //Draw frame button
+    if (m_downHitTest == HTCLOSE)
+        DrawButton(pNewDC, 0, 1);
+    else if (m_moveHitTest == HTCLOSE)
+        DrawButton(pNewDC, 0, 2);
+    else
+        DrawButton(pNewDC, 0, 0);
+
+    if (m_downHitTest == HTMINBUTTON)
+        DrawButton(pNewDC, 2, 1);
+    else if (m_moveHitTest == HTMINBUTTON)
+        DrawButton(pNewDC, 2, 2);
+    else
+        DrawButton(pNewDC, 2, 0);
+
+    if (m_downHitTest == HTMAXBUTTON)
+        DrawButton(pNewDC, 1, 1);
+    else if (m_moveHitTest == HTMAXBUTTON)
+        DrawButton(pNewDC, 1, 2);
+    else
+        DrawButton(pNewDC, 1, 0);
+
+    //Draw icon
+    int cx = GetSystemMetrics(SM_CXSMICON);
+    int cy = GetSystemMetrics(SM_CYSMICON);
+    HICON hi = (HICON)SendMessage(m_hWnd, WM_GETICON, ICON_SMALL, 0);
+
+    if (!hi)
+        hi = LoadIcon(_Module.m_hInst, MAKEINTRESOURCE(IDR_MAINFRAME));
+
+    HICON hImage = (HICON)CopyImage(hi, IMAGE_ICON, cx, cy, 0);
+    ::DrawIconEx(pNewDC->m_hDC, m_BorderLeftWidth, 5, hImage, cx, cy, 0, 0, DI_NORMAL);
+
+    if (hi) ::DeleteObject(hi);
+
+    if (hImage) ::DestroyIcon(hImage);
+
+    //Draw text
+    if (m_lptWndTitle != NULL && _tcslen(m_lptWndTitle) == 0)
+        GetWindowText(m_lptWndTitle, _MAX_PATH);
+
+    if (_tcslen(m_lptWndTitle) == 0) _tcscpy(m_lptWndTitle, _T("G-Net MeetMe Plus"));
+
+    if (m_bActive)
+        pNewDC->SetTextColor(m_colTitle1);
+    else
+        pNewDC->SetTextColor(m_colTitle2);
+
+    CFont font;
+    font.CreateFont(14, 0, 0, 0, FW_BOLD, FALSE, FALSE, 0, ANSI_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+                    DEFAULT_PITCH | FF_SWISS, TEXT("Arial"));
+    HFONT hOldFont = pNewDC->SelectFont(font.m_hFont);
+    pNewDC->SetBkMode(TRANSPARENT);
+    int nTextWidth = wc.Width() - m_bmpTitle.Width() + m_titleoff2;
+    ::DrawText(pNewDC->m_hDC, m_lptWndTitle, _tcslen(m_lptWndTitle),
+               CRect(m_textShift, m_textShiftVer, nTextWidth, m_TitleHeight), DT_SINGLELINE | DT_LEFT | DT_VCENTER);
+    pNewDC->SelectFont(hOldFont);
+    dc.BitBlt(0, 0, wc.Width(), m_TitleHeight, pNewDC->m_hDC, 0, 0, SRCCOPY);
+    memDC.SelectBitmap(hOldBitmap);
+//  newrgn.DeleteObject();
+    font.DeleteObject();
+
+    if (memDC.m_hDC) memDC.DeleteDC();
+
+    if (pNewDC) pNewDC->DeleteDC();
+
+    dc.SelectClipRgn(NULL);
+}
+
+void CXuSkinWindow::OnStyleChanged(LPWINDOWPOS lpWindowPos)
+{
+    DefWindowProc();
+    CRect rectWnd;
+    GetWindowRect(rectWnd);
+    rectWnd.OffsetRect(-rectWnd.left, -rectWnd.top);
+}
+/************************************************************************/
+/*
+/*  OnSysCommand : 对系统命令MSG_WM_SYSCOMMAND的响应函数
+/*
+/************************************************************************/
+LRESULT CXuSkinWindow::OnSysCommand(UINT unFlags, CPoint point)
+{
+    //SetMsgHandled(FALSE);
+    //return 0;
+    LRESULT result;
+    result = DefWindowProc();
+    return result;
+}
+//////////////////////////////////////////////////////////////////////////
+//
+//  OnHandledCommand : 对系统消息MSG_WM_COMMAND的响应函数
+//
+//////////////////////////////////////////////////////////////////////////
+void CXuSkinWindow::OnCommand(UINT hWParam, int lWParam, HWND lParam)
+{
+    if (lParam == 0) {
+        //首先获得系统菜单
+        CMenu SysMenu;
+        HMENU hSysMenu = ::GetSystemMenu(m_hWnd, FALSE);
+
+        if (!::IsMenu(hSysMenu)) {
+            SetMsgHandled(FALSE);
+            return;
+        }
+
+        SysMenu.Attach(hSysMenu);
+        int count = SysMenu.GetMenuItemCount();
+        int i = 0;
+        UINT uMenuID = 0;
+
+        //循环比较，执行的命令是否为（还原、移动、大小、最大化、最小化、关闭）
+        for (; i < count ; i++) {
+            uMenuID = SysMenu.GetMenuItemID(i);
+
+            if (uMenuID == lWParam)
+                break;
+        }
+
+        SysMenu.Detach();
+
+        if (i > count)
+            return;
+
+        if (lWParam == SC_MAXIMIZE)
+            Maximize();
+        else if (lWParam == SC_MINIMIZE)
+            Minimize();
+        else if (lWParam == SC_RESTORE && m_winstate == 1)
+            Restore();
+        else if (lWParam == SC_RESTORE && m_winstate == 2) {
+            ::ShowWindow(m_hWnd, SW_RESTORE);
+            m_winstate = m_oldwinstate;
+            OnNcPaint(0);
+        } else {
+            //不是系统菜单命令，则交付给窗口自己处理其他的命令
+            SetMsgHandled(FALSE);
+        }
+    } else
+        SetMsgHandled(FALSE);
+}
+/************************************************************************/
+/*
+/* 非客户区激活/失去激活状态时的响应函数
+/*
+/************************************************************************/
+long CXuSkinWindow::OnNcActivate(BOOL bFlag)
+{
+    LRESULT result =  DefWindowProc();
+    m_bActive = bFlag;
+    OnNcPaint(0);
+
+    if (!m_bActive) return 1;
+    else return 0;
+}
+/************************************************************************/
+/*
+/* 窗口被激活时的处理代码
+/*
+/************************************************************************/
+void CXuSkinWindow::OnActive(UINT nState, BOOL bMinimized, HWND hwndOther)
+{
+    m_bActive = (nState == WA_ACTIVE || nState == WA_CLICKACTIVE);
+    OnNcActivate(m_bActive);
+}
+/************************************************************************/
+/*
+/* 窗口位置改变后的响应函数
+/*
+/************************************************************************/
+LRESULT CXuSkinWindow::OnWindowPosChanged(LPWINDOWPOS pPos)
+{
+    LRESULT result = DefWindowProc();
+
+    if ((pPos->flags & SWP_NOSIZE) == 0) {
+        CRect rectWnd(0, 0, pPos->cx, pPos->cy);
+        //AdjustLayout( rectWnd );
+        OnNcPaint(0);
+    }
+
+    return result;
+}
+/************************************************************************/
+/*
+/* 对用户点击位置的判断
+/*
+/************************************************************************/
+LRESULT CXuSkinWindow::OnNcHitTest(CPoint ptCursor)
+{
+    CRect rectWnd;
+    GetWindowRect(rectWnd);
+    ptCursor.Offset(-rectWnd.left, -rectWnd.top);
+
+    if (PtInRect(GetButtonRect(0), ptCursor))
+        return HTCLOSE;
+
+    if (PtInRect(GetButtonRect(2), ptCursor) && m_minable)
+        return HTMINBUTTON;
+
+    if (PtInRect(GetButtonRect(1), ptCursor) && m_maxable)
+        return HTMAXBUTTON;
+
+    CRect r;
+    int cx = GetSystemMetrics(SM_CXSMICON);
+    int cy = GetSystemMetrics(SM_CYSMICON);
+
+    if (PtInRect(CRect(m_BorderLeftWidth, 5, m_BorderLeftWidth + cx, cy + 5), ptCursor))
+        return HTSYSMENU;
+
+    r = CRect(0, 0, m_BorderLeftWidth, m_TitleHeight);
+
+    if (PtInRect(r, ptCursor) && m_sizable && m_winstate != 1)      //!IsZoomed(m_hWnd) )
+        return HTTOPLEFT;
+
+    r = CRect(rectWnd.Width() - m_BorderLeftWidth, 0,  rectWnd.Width(), m_TitleHeight);
+
+    if (PtInRect(r, ptCursor) && m_sizable && m_winstate != 1)      //!IsZoomed(m_hWnd) )
+        return HTTOPRIGHT;
+
+    r = CRect(0, rectWnd.Height() - m_BorderBottomHeight, m_BorderLeftWidth, rectWnd.Height());
+
+    if (PtInRect(r, ptCursor) && m_sizable && m_winstate != 1)      //!IsZoomed(m_hWnd) )
+        return HTBOTTOMLEFT;
+
+    r = CRect(rectWnd.Width() - m_BorderRightWidth, rectWnd.Height() - m_BorderBottomHeight,  rectWnd.Width(), rectWnd.Height());
+
+    if (PtInRect(r, ptCursor) && m_sizable && m_winstate != 1)      //!IsZoomed(m_hWnd) )
+        return HTBOTTOMRIGHT;
+
+    r = CRect(0, m_TitleHeight,  m_BorderLeftWidth, rectWnd.Height() - m_BorderBottomHeight);
+
+    if (PtInRect(r, ptCursor) && m_sizable && m_winstate != 1)      //!IsZoomed(m_hWnd) )
+        return HTLEFT;
+
+    r = CRect(rectWnd.Width() - m_BorderRightWidth, m_TitleHeight,  rectWnd.Width(), rectWnd.Height() - m_BorderBottomHeight);
+
+    if (PtInRect(r, ptCursor) && m_sizable && m_winstate != 1)      //!IsZoomed(m_hWnd) )
+        return HTRIGHT;
+
+    r = CRect(m_BorderLeftWidth, rectWnd.Height() - m_BorderBottomHeight,  rectWnd.Width() - m_BorderRightWidth, rectWnd.Height());
+
+    if (PtInRect(r, ptCursor) && m_sizable && m_winstate != 1)      //!IsZoomed(m_hWnd) )
+        return HTBOTTOM;
+
+    r = CRect(m_BorderLeftWidth, 0,  rectWnd.Width() - m_BorderRightWidth, m_BorderBottomHeight);
+
+    if (PtInRect(r, ptCursor) && m_sizable && m_winstate != 1)      //!IsZoomed(m_hWnd) )
+        return HTTOP;
+
+    //set to boder 5
+    r = CRect(m_BorderLeftWidth, 5 , rectWnd.Width() - m_BorderRightWidth, m_TitleHeight);
+
+    if (PtInRect(r, ptCursor))
+        return HTCAPTION;
+
+    return HTCLIENT;
+}
+
+LRESULT CXuSkinWindow::OnNcLButtonDblClk(UINT unNcHitTest, CPoint point)
+{
+    if (unNcHitTest == HTCAPTION && m_sizable) {
+        if (m_winstate == 1)
+            Restore();
+        else
+            Maximize(); //ShowWindow(m_hWnd, SW_MAXIMIZE);
+
+        m_downHitTest = 0;
+        m_moveHitTest = 0;
+        OnNcPaint(0);
+    }
+
+    return 0;
+}
+
+LRESULT CXuSkinWindow::OnNcLButtonDown(UINT unNcHitTest, CPoint point)
+{
+    m_downHitTest = unNcHitTest;
+    m_moveHitTest = m_downHitTest;
+    OnNcPaint(0);
+
+    if (unNcHitTest >= HTLEFT && unNcHitTest <= HTBOTTOMRIGHT ||
+        unNcHitTest == HTCAPTION && m_winstate != 1)   //!IsZoomed(m_hWnd) )
+        SetMsgHandled(FALSE);
+    else if (unNcHitTest == HTSYSMENU) {
+        //PopupSysMenu(point);
+    }
+
+    return 0;
+}
+
+LRESULT CXuSkinWindow::OnNcLButtonUp(UINT unNcHitTest, CPoint point)
+{
+    m_downHitTest = 0;
+    m_moveHitTest = 0;
+
+    if (unNcHitTest == HTCLOSE) {
+        ::SendMessage(m_hWnd, WM_CLOSE, 0, 0);
+        return 0;
+    } else if (unNcHitTest == HTMINBUTTON)
+        Minimize();
+    else if (unNcHitTest == HTMAXBUTTON) {
+        if (m_winstate == 1)   // IsZoomed(m_hWnd) )
+            Restore();
+        else
+            Maximize();
+    } else
+        return 0;
+
+    OnNcPaint(0);
+    return 0;
+}
+
+LRESULT CXuSkinWindow::OnNcMouseMove(UINT unNcHitTest, CPoint point)
+{
+    if (unNcHitTest >= HTLEFT && unNcHitTest <= HTBOTTOMRIGHT ||
+        unNcHitTest == HTCAPTION && m_winstate != 1)   //!IsZoomed(m_hWnd) )
+        SetMsgHandled(FALSE);
+
+    m_moveHitTest = unNcHitTest;
+    m_downHitTest = 0;
+
+    if (m_oldHitTest != unNcHitTest) {
+        OnNcPaint(0);
+        m_oldHitTest = unNcHitTest;
+    }
+
+    return 0;
+}
+
+LRESULT CXuSkinWindow::OnNcRButtonDown(UINT unNcHitTest, CPoint point)
+{
+    if (unNcHitTest == HTCAPTION)
+        PopupSysMenu(point);
+
+    return 0;
+}
+
+LRESULT CXuSkinWindow::OnNcRButtonUp(UINT unNcHitTest, CPoint point)
+{
+    return 0;
+}
+
+BOOL CXuSkinWindow::PopupSysMenu(CPoint point)
+{
+    CMenu SysMenu;
+    SysMenu.Attach(::GetSystemMenu(m_hWnd, FALSE));
+    SysMenu.TrackPopupMenu(0, point.x, point.y, m_hWnd);
+    SysMenu.Detach();
+    return TRUE;
+}
+
+/************************************************************************/
+/*
+/* 获取窗口客户区的大小
+/*
+/************************************************************************/
+LRESULT CXuSkinWindow::OnNcCalcSize(BOOL wParam, LPARAM lParam)
+{
+    NCCALCSIZE_PARAMS* lpncsp = (NCCALCSIZE_PARAMS*)lParam;
+
+    if ((BOOL)wParam) {
+        lpncsp->rgrc[0].left = lpncsp->rgrc[0].left + m_BorderLeftWidth;
+        lpncsp->rgrc[0].right = lpncsp->rgrc[0].right - m_BorderRightWidth;
+        lpncsp->rgrc[0].top = lpncsp->rgrc[0].top + m_TitleHeight;
+        lpncsp->rgrc[0].bottom = lpncsp->rgrc[0].bottom - m_BorderBottomHeight;
+        lpncsp->rgrc[1] = lpncsp->rgrc[0];
+    } else {
+        SetMsgHandled(FALSE);
+    }
+
+    return 0;
+}
+/************************************************************************/
+/*
+/* 窗口大小改变后进行的处理函数
+/*
+/************************************************************************/
+void CXuSkinWindow::OnSize(UINT uMsg, CSize size)
+{
+    CRect wr;
+    SetMsgHandled(FALSE);
+    GetWindowRect(&wr);
+    Invalidate();
+    OnNcPaint(0);
+
+    if (m_bTrans)
+        ::SetWindowRgn(m_hWnd, GetRegion(wr.Width(), wr.Height()), TRUE);
+    else
+        ::SetWindowRgn(m_hWnd, NULL, TRUE);
+}
+/************************************************************************/
+/*
+/* 设定窗口最大、最小尺寸
+/*
+/************************************************************************/
+void CXuSkinWindow::OnGetMinMaxInfo(LPMINMAXINFO lpMMI)
+{
+    //lpMMI->ptMinTrackSize = CPoint(m_bmpTitle.Width()+m_bmpLeftBorder.Width()+m_bmpRightBorder.Width(), m_bmpLeftBorder.Height()+30);
+    lpMMI->ptMinTrackSize = CPoint(640, 480);
+}
+/************************************************************************/
+/*
+/* 获取REGION
+/*
+/************************************************************************/
+HRGN CXuSkinWindow::GetRegion(int w, int h)
+{
+    CRect wr;
+    GetWindowRect(wr);
+    CRgn rgn;
+
+    if (m_bTrans) {
+        CWindowDC pDC(m_hWnd);
+        CDC memDC;
+        CXuBitmap bmp;
+        HBITMAP hOldBmp = NULL;
+        memDC.CreateCompatibleDC(pDC);
+        bmp.CreateCompatibleBitmap(pDC, w, m_TitleHeight);
+        hOldBmp = memDC.SelectBitmap(bmp.m_hBitmap);
+        /*
+        memDC.FillSolidRect( 0, 0, w, h, 0 );
+        DrawFrame( &memDC, 0, 0, w, h, 0 );
+        */
+        DrawTitle(&memDC, m_BorderLeftWidth, 0, wr.Width() - m_BorderRightWidth - m_BorderLeftWidth + 1, 0);
+        DrawLeft(&memDC, 0, 0, m_bmpLeftBorder.Height(), 0);
+        DrawRight(&memDC, wr.Width() - m_BorderRightWidth , 0, m_bmpRightBorder.Height(), 0);
+        memDC.SelectBitmap(hOldBmp);
+        rgn.CreateRectRgn(0, m_TitleHeight, wr.Width(), wr.Height());
+        HRGN hrgn = bmp.CreateRgnFromFile(m_colTrans);
+        CRgn newrgn;
+        newrgn.CreateRectRgn(0, m_TitleHeight, wr.Width(), wr.Height());
+        newrgn.CombineRgn(rgn.m_hRgn, hrgn, RGN_XOR);
+        return (HRGN)newrgn.Detach();
+    } else
+        rgn.CreateRectRgn(0, 0, wr.Width(), wr.Height());
+
+    return (HRGN)rgn.Detach();
+}
+/************************************************************************/
+/*
+/*  获得按钮绘制范围
+/*
+/*  参数：
+/*      i - 按钮类型（=0关闭按钮，=1最大化还原按钮，=2最小化按钮）
+/*
+/*
+/*
+/************************************************************************/
+CRect CXuSkinWindow::GetButtonRect(int i)
+{
+    CRect wr;
+    GetWindowRect(&wr);
+    CRect r;
+
+    if (i == 0 && m_bmpCloseBtn.m_hBitmap) {
+        //close
+        r = m_rectCloseBtn;
+        r.left = wr.Width() - m_rectCloseBtn.right;
+        r.right = wr.Width() - m_rectCloseBtn.left;
+    }
+
+    if (i == 1 && m_bmpMaxBtn.m_hBitmap) {
+        //max
+        if (m_winstate != 1 || !m_bmpRestoreBtn.m_hBitmap) {
+            r = m_rectMaxBtn;
+            r.left = wr.Width() - m_rectMaxBtn.right;
+            r.right = wr.Width() - m_rectMaxBtn.left;
+        } else {
+            r = m_rectRestoreBtn;
+            r.left = wr.Width() - m_rectRestoreBtn.right;
+            r.right = wr.Width() - m_rectRestoreBtn.left;
+        }
+    }
+
+    if (i == 2 && m_bmpMinBtn.m_hBitmap) {
+        //min
+        r = m_rectMinBtn;
+        r.left = wr.Width() - m_rectMinBtn.right;
+        r.right = wr.Width() - m_rectMinBtn.left;
+    }
+
+    return r;
+}
+/************************************************************************/
+/*
+/* ......
+/*
+/************************************************************************/
+CRect CXuSkinWindow::GetMaximizeRect()
+{
+    CRect r;
+    SystemParametersInfo(SPI_GETWORKAREA, 0, r, 0);
+    return r;
+}
+/************************************************************************/
+/*
+/* ......
+/*
+/************************************************************************/
+BOOL CXuSkinWindow::Maximize()
+{
+    CRect r = GetMaximizeRect();
+    ::GetWindowRect(m_hWnd, m_rectRestoreWin);
+    m_winstate = 1;
+    ::MoveWindow(m_hWnd, r.left, r.top, r.Width(), r.Height(), TRUE);
+    ::UpdateWindow(m_hWnd);
+    return TRUE;
+}
+/************************************************************************/
+/*
+/* ......
+/*
+/************************************************************************/
+BOOL CXuSkinWindow::Minimize()
+{
+    m_oldwinstate = m_winstate;
+    m_winstate = 2;
+    ::ShowWindow(m_hWnd, SW_MINIMIZE);
+    return TRUE;
+}
+/************************************************************************/
+/*
+/* ......
+/*
+/************************************************************************/
+BOOL CXuSkinWindow::Restore()
+{
+    if (m_winstate == 1) {
+        ::MoveWindow(m_hWnd, m_rectRestoreWin.left, m_rectRestoreWin.top,
+                     m_rectRestoreWin.Width(), m_rectRestoreWin.Height(), TRUE);
+        m_winstate = 0;
+        ::UpdateWindow(m_hWnd);
+    }
+
+    return TRUE;
+}

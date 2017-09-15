@@ -1,0 +1,452 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "atlres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""atlres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    BUTTON      ID_APP_ABOUT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\Toolbar.bmp"
+IDB_TABBITMAP           BITMAP  DISCARDABLE     "res\\tab.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\TabViewDemo.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 187, 102
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,130,81,50,14
+    CTEXT           "TabViewDemo Application v1.0\n\n(c) Copyright 2002",
+                    IDC_STATIC,25,57,78,32
+    ICON            IDR_MAINFRAME,IDC_STATIC,55,26,18,20
+    GROUPBOX        "",IDC_STATIC,7,7,115,88
+END
+
+IDD_TABVIEWDEMO_FORM DIALOGEX 0, 0, 393, 244
+STYLE WS_CHILD
+EXSTYLE WS_EX_CLIENTEDGE
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    LTEXT           "Example Form",IDC_STATIC,7,7,136,8
+    LTEXT           "Static Text",IDC_STATIC,199,7,136,8
+    LTEXT           "Static Text",IDC_STATIC,7,62,136,8
+    PUSHBUTTON      "Button1",IDC_BUTTON1,201,146,50,14
+    PUSHBUTTON      "Button2",IDC_BUTTON2,258,146,50,14
+    EDITTEXT        IDC_EDIT1,7,19,113,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,197,19,113,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT3,7,75,113,14,ES_AUTOHSCROLL
+    CONTROL         "Check1",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,113,41,10
+    CONTROL         "Radio1",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,7,129,39,
+                    10
+    CONTROL         "Radio2",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,7,146,39,
+                    10
+END
+
+IDD_STYLES_DIALOG DIALOG DISCARDABLE  0, 0, 337, 362
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Styles"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,223,341,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,280,341,50,14
+    PUSHBUTTON      "Apply",IDAPPLY,166,341,50,14
+    CONTROL         "TCS_BOTTOM - Tabs appear at the bottom of the control. This value equals TCS_RIGHT.",
+                    IDC_TCS_BOTTOM,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,7,301,10
+    CONTROL         "TCS_BUTTONS - Tabs appear as buttons, and no border is drawn around the display area.",
+                    IDC_TCS_BUTTONS,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,17,303,10
+    CONTROL         "TCS_FIXEDWIDTH - All tabs are the same width. This style cannot be combined with the\r\n     TCS_RIGHTJUSTIFY style.",
+                    IDC_TCS_FIXEDWIDTH,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,27,309,18
+    CONTROL         "TCS_FLATBUTTONS - Selected tabs appear as being indented into the background\r\n     while other tabs appear as being on the same plane as the background. This style only\r\n     affects tab controls with the TCS_BUTTONS style.",
+                    IDC_TCS_FLATBUTTONS,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,55,301,26
+    CONTROL         "TCS_FOCUSNEVER - The tab control does not receive the input focus when clicked.",
+                    IDC_TCS_FOCUSNEVER,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,45,286,10
+    CONTROL         "TCS_FOCUSONBUTTONDOWN - The tab control receives the input focus when clicked.",
+                    IDC_TCS_FOCUSONBUTTONDOWN,"Button",BS_AUTOCHECKBOX | 
+                    BS_TOP | BS_MULTILINE | WS_TABSTOP,7,81,299,10
+    CONTROL         "TCS_FORCEICONLEFT - Icons are aligned with the left edge of each fixed-width tab.\r\n     This style can only be used with the TCS_FIXEDWIDTH style.",
+                    IDC_TCS_FORCEICONLEFT,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,91,302,18
+    CONTROL         "TCS_FORCELABELLEFT - Labels are aligned with the left edge of each fixed-width tab;\r\n     that is, the label is displayed immediately to the right of the icon instead of being centered. ",
+                    IDC_TCS_FORCELABELLEFT,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,109,314,18
+    CONTROL         "TCS_HOTTRACK - Items under the pointer are automatically highlighted. You can check\r\n     whether or not hot tracking is enabled by calling SystemParametersInfo. ",
+                    IDC_TCS_HOTTRACK,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,127,318,18
+    CONTROL         "TCS_MULTILINE - Multiple rows of tabs are displayed, if necessary, so all tabs are visible at once.",
+                    IDC_TCS_MULTILINE,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,145,323,10
+    CONTROL         "TCS_MULTISELECT - Multiple tabs can be selected by holding down CTRL when clicking.\r\n     This style must be used with the TCS_BUTTONS style.",
+                    IDC_TCS_MULTISELECT,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,155,310,19
+    CONTROL         "TCS_OWNERDRAWFIXED - The parent window is responsible for drawing tabs.",
+                    IDC_TCS_OWNERDRAWFIXED,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,174,270,10
+    CONTROL         "TCS_RAGGEDRIGHT - Rows of tabs will not be stretched to fill the entire width of the control.\r\n     This style is the default.",
+                    IDC_TCS_RAGGEDRIGHT,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,184,312,19
+    CONTROL         "TCS_RIGHT - Tabs appear vertically on the right side of controls that use the TCS_VERTICAL\r\n     style. This value equals TCS_BOTTOM.",
+                    IDC_TCS_RIGHT,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,203,316,19
+    CONTROL         "TCS_RIGHTJUSTIFY - The width of each tab is increased, if necessary, so that each row of\r\n     tabs fills the entire width of the tab control. ",
+                    IDC_TCS_RIGHTJUSTIFY,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,222,310,20
+    CONTROL         "TCS_SCROLLOPPOSITE - Unneeded tabs scroll to the opposite side of the control when a\r\n     tab is selected.",
+                    IDC_TCS_SCROLLOPPOSITE,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,242,308,18
+    CONTROL         "TCS_SINGLELINE - Only one row of tabs is displayed. The user can scroll to see more tabs,\r\n     if necessary. This style is the default.",
+                    IDC_TCS_SINGLELINE,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,260,317,19
+    CONTROL         "TCS_TABS - Tabs appear as tabs, and a border is drawn around the display area.\r\n     This style is the default.",
+                    IDC_TCS_TABS,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,279,311,19
+    CONTROL         "TCS_TOOLTIPS - The tab control has a tooltip control associated with it. ",
+                    IDC_TCS_TOOLTIPS,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,298,247,10
+    CONTROL         "TCS_VERTICAL - Tabs appear at the left side of the control, with tab text displayed vertically.\r\n     This style is valid only when used with the TCS_MULTILINE style. To make tabs appear\r\n     on the right side of the control, also use the TCS_RIGHT style.",
+                    IDC_TCS_VERTICAL,"Button",BS_AUTOCHECKBOX | BS_TOP | 
+                    BS_MULTILINE | WS_TABSTOP,7,308,314,28
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 180
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 95
+    END
+
+    IDD_TABVIEWDEMO_FORM, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 386
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 237
+    END
+
+    IDD_STYLES_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 330
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 355
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "test1 Module\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "TEST1\0"
+            VALUE "LegalCopyright", "Copyright 2002\0"
+            VALUE "OriginalFilename", "TabViewDemo.exe\0"
+            VALUE "ProductName", "TabViewDemo Module\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "OLESelfRegister", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// HTML
+//
+
+TabViewCtrl.HTML HTML    DISCARDABLE     "res\\TabViewCtrl.html"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// JPGS
+//
+
+TabViewCtrl.JPG JPGS    DISCARDABLE     "res\\TabViewCtrl.jpg"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "E&xit\tAlt-F4",               ID_APP_EXIT
+    END
+    POPUP "&Demo"
+    BEGIN
+        MENUITEM "Add Demo Tab &1\tCtrl+1",     ID_DEMO_ADDTAB
+        MENUITEM "Add Demo Tab &2\tCtrl+2",     ID_DEMO_ADDTAB2
+        MENUITEM SEPARATOR
+        MENUITEM "&Remove Tab\tCtrl+R",         ID_DEMO_REMOVETAB
+        MENUITEM "Remove &All Tabs\tCtrl+A",    ID_DEMO_REMOVEALLTABS
+        MENUITEM SEPARATOR
+        MENUITEM "Styles...\tCtrl+S",           ID_DEMO_STYLES
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About TabViewDemo...",       ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "1",            ID_DEMO_ADDTAB,         VIRTKEY, CONTROL, NOINVERT
+    "2",            ID_DEMO_ADDTAB2,        VIRTKEY, CONTROL, NOINVERT
+    "A",            ID_DEMO_REMOVEALLTABS,  VIRTKEY, CONTROL, NOINVERT
+    "R",            ID_DEMO_REMOVETAB,      VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_DEMO_STYLES,         VIRTKEY, CONTROL, NOINVERT
+    VK_F1,          ID_DEMO_ADDTAB,         VIRTKEY, CONTROL, NOINVERT
+    VK_F2,          ID_DEMO_ADDTAB2,        VIRTKEY, CONTROL, NOINVERT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "TabViewDemo"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+    ID_FILE_PAGE_SETUP      "Change the printing options\nPage Setup"
+    ID_FILE_PRINT_SETUP     "Change the printer and printing options\nPrint Setup"
+    ID_FILE_PRINT           "Print the active document\nPrint"
+    ID_FILE_PRINT_PREVIEW   "Display full pages\nPrint Preview"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_TILE_VERT     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ATL_IDS_SCSIZE          "Change the window size"
+    ATL_IDS_SCMOVE          "Change the window position"
+    ATL_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    ATL_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    ATL_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    ATL_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    ATL_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ATL_IDS_SCRESTORE       "Restore the window to normal size"
+    ATL_IDS_SCTASKLIST      "Activate Task List"
+    ATL_IDS_MDICHILD        "Activate this window"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ATL_IDS_IDLEMESSAGE     "Ready"
+    ATL_IDS_IDLEMESSAGE2    "Ready"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ATL_IDS_MRU_FILE        "Open this document"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_DEMO_ADDTAB          "Add a demonstration tab"
+    ID_DEMO_ADDTAB2         "Add a demonstration tab"
+    ID_DEMO_REMOVETAB       "Remove the currently selected tab"
+    ID_DEMO_REMOVEALLTABS   "Remove all of the tabs"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

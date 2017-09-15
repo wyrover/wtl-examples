@@ -1,0 +1,140 @@
+// XuSkinWindow.h: interface for the CXuSkinWindow class.
+//
+//////////////////////////////////////////////////////////////////////
+
+#if !defined(AFX_XUSKINWINDOW_H__9E99FE46_A789_4884_B383_968F413D6D83__INCLUDED_)
+#define AFX_XUSKINWINDOW_H__9E99FE46_A789_4884_B383_968F413D6D83__INCLUDED_
+
+#if _MSC_VER > 1000
+    #pragma once
+#endif // _MSC_VER > 1000
+
+#include "XuBitmap.h"
+
+typedef CWinTraits < WS_OVERLAPPED | WS_THICKFRAME | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX > CXuTraits;
+class CXuSkinWindow : public CWindowImpl<CXuSkinWindow, CWindow, CXuTraits>
+{
+public:
+    CXuSkinWindow();
+    virtual ~CXuSkinWindow();
+
+    BEGIN_MSG_MAP_EX(CXuSkinWindow)
+    MSG_WM_NCPAINT(OnNcPaint)
+    MSG_WM_WINDOWPOSCHANGED(OnStyleChanged)
+    MSG_WM_SYSCOMMAND(OnSysCommand)
+    MSG_WM_NCACTIVATE(OnNcActivate)
+    MSG_WM_ACTIVATE(OnActive)
+    MSG_WM_WINDOWPOSCHANGED(OnWindowPosChanged)
+    MSG_WM_NCLBUTTONDOWN(OnNcLButtonDown)
+    MSG_WM_NCLBUTTONUP(OnNcLButtonUp)
+    MSG_WM_NCLBUTTONDBLCLK(OnNcLButtonDblClk)
+    MSG_WM_NCRBUTTONDOWN(OnNcRButtonDown)
+    MSG_WM_NCRBUTTONUP(OnNcRButtonUp)
+    MSG_WM_NCMOUSEMOVE(OnNcMouseMove)
+    MSG_WM_NCHITTEST(OnNcHitTest)
+    MSG_WM_SIZE(OnSize)
+    MSG_WM_NCCALCSIZE(OnNcCalcSize)
+    MSG_WM_GETMINMAXINFO(OnGetMinMaxInfo)
+    MSG_WM_COMMAND(OnCommand)
+    //MESSAGE_HANDLER(WM_NCMOUSELEAVE, OnNcMouseLeave)
+    //MESSAGE_HANDLER(WM_NCMOUSEHOVER, OnNcMouseHover)
+    //DEFAULT_REFLECTION_HANDLER()
+    END_MSG_MAP()
+
+private:
+    void OnNcPaint(HRGN rgnFrame);
+    void OnStyleChanged(LPWINDOWPOS lpWindowPos);
+    LRESULT OnSysCommand(UINT unFlags, CPoint point);
+    long OnNcActivate(BOOL bFlag);
+    LRESULT OnWindowPosChanged(LPWINDOWPOS pPos);
+    LRESULT OnNcLButtonDown(UINT unNcHitTest, CPoint point);
+    LRESULT OnNcLButtonUp(UINT unNcHitTest, CPoint point);
+    LRESULT OnNcLButtonDblClk(UINT unNcHitTest, CPoint point);
+    LRESULT OnNcRButtonDown(UINT unNcHitTest, CPoint point);
+    LRESULT OnNcRButtonUp(UINT unNcHitTest, CPoint point);
+    LRESULT OnNcMouseMove(UINT unNcHitTest, CPoint point);
+    LRESULT OnNcHitTest(CPoint ptCursor);
+    void OnSize(UINT uMsg, CSize size);
+    void OnActive(UINT nState, BOOL bMinimized, HWND hwndOther);
+    LRESULT OnNcCalcSize(BOOL wParam, LPARAM lParam);
+    void OnGetMinMaxInfo(LPMINMAXINFO lpMMI);
+    void OnCommand(UINT hWParam, int lWParam, HWND lParam);
+//  LRESULT OnNcMouseLeave(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
+//  LRESULT OnNcMouseHover(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
+
+public:
+    void EnableWindowFrame(HWND hWnd);
+//  BOOL LoadSkin(HMODULE hInst=NULL, COLORREF crBack=0);
+//  BOOL LoadSkin(LPCTSTR lpctSkinFilePath);
+    BOOL _Init();
+    BOOL ChangeSkin(LPCTSTR lpctSkinName);
+
+private:
+    BOOL DrawFrame(CDC *pDC, int x, int y, int w, int h, int state, int title);
+    BOOL DrawTitle(CDC *pDC, int x, int y, int w, int state);
+    BOOL DrawLeft(CDC *pDC, int x, int y, int h, int state);
+    BOOL DrawRight(CDC *pDC, int x, int y, int h, int state);
+    BOOL DrawBottom(CDC *pDC, int x, int y, int w, int state);
+    BOOL DrawButton(CDC * pDC, int i, int state);
+
+    HRGN GetRegion(int w, int h);
+
+    BOOL Restore();
+    BOOL Minimize();
+    BOOL Maximize();
+    CRect GetMaximizeRect();
+    CRect GetButtonRect(int i);
+    BOOL PopupSysMenu(CPoint point);
+
+    int m_titleoff1, m_titleoff2;
+    int m_leftoff1, m_leftoff2;
+    int m_rightoff1, m_rightoff2;
+    int m_bottomoff1, m_bottomoff2;
+
+    int m_textShift, m_textShiftVer;
+    int m_winstate;         //0 for normal, 1 for max, 2 for min
+    int m_oldwinstate;      //save state before min
+
+    int m_TitleHeight;
+    int m_BorderLeftWidth;
+    int m_BorderRightWidth;
+    int m_BorderBottomHeight;
+
+    BOOL m_bActive;
+    BOOL m_bTrans;
+    BOOL m_bInit;
+
+    BOOL m_sizable;
+    BOOL m_minable;
+    BOOL m_maxable;
+    BOOL m_sysmenu;
+
+    CXuBitmap m_bmpTitle;
+    CXuBitmap m_bmpLeftBorder;
+    CXuBitmap m_bmpRightBorder;
+    CXuBitmap m_bmpBottomBorder;
+
+    CXuBitmap m_bmpCloseBtn;
+    CXuBitmap m_bmpRestoreBtn;
+    CXuBitmap m_bmpMinBtn;
+    CXuBitmap m_bmpMaxBtn;
+
+    LPTSTR m_lptWndTitle;
+
+    COLORREF m_colTitle1, m_colTitle2;
+    COLORREF m_colTrans;
+
+    UINT m_oldHitTest;
+    UINT m_moveHitTest;
+    UINT m_downHitTest;
+
+    CRect m_rectRestoreWin;
+    CRect m_rectMinBtn;
+    CRect m_rectMaxBtn;
+    CRect m_rectCloseBtn;
+    CRect m_rectRestoreBtn;
+
+//  CIni m_skinINI;
+};
+
+#endif // !defined(AFX_XUSKINWINDOW_H__9E99FE46_A789_4884_B383_968F413D6D83__INCLUDED_)

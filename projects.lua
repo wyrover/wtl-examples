@@ -1,5 +1,5 @@
-BOOK_CODE_PATH = "H:/rover/rover-self-work/cpp/book-code"
-THIRD_PARTY = "H:/rover/rover-self-work/cpp/book-code/3rdparty"
+BOOK_CODE_PATH = "E:/book-code"
+THIRD_PARTY = "E:/book-code/3rdparty"
 WORK_PATH = os.getcwd()
 includeexternal (BOOK_CODE_PATH .. "/premake-vs-include.lua")
 
@@ -118,6 +118,7 @@ workspace(path.getname(os.realpath(".")))
             
         end
 
+
     group "wtl_control_examples"
         matches = os.matchdirs("src/wtl_control_examples/*")
         for i = #matches, 1, -1 do
@@ -148,6 +149,18 @@ workspace(path.getname(os.realpath(".")))
             local project_name = path.getname(matches[i])
             
             create_mfc_project(project_name, "src/mfc_draw_examples")
+            
+            
+        end
+     
+    
+    group "wtl_encrypt_decrypt"
+        matches = os.matchdirs("src/wtl_encrypt_decrypt/*")
+        for i = #matches, 1, -1 do
+            --p.w(path.getname(matches[i]))  
+            local project_name = path.getname(matches[i])
+            
+            create_wtl_project(project_name, "src/wtl_encrypt_decrypt")
             
             
         end

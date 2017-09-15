@@ -1,0 +1,277 @@
+///////////////////////////////////////////////////////////////////
+//
+// XuStatusBarCtrl.h
+// 版权所有：G-Net
+// 作者：XuYu
+// 创建日期：2007-5-25
+// 更新日期：2007-5-28
+// 描述：自定义状态栏控件。可以使用位图作为背景，并可以输出自定义文字、图片等。
+// 更新记录：
+//	2007-5-25 - 创建了基本的功能
+//	2007-5-28 - 增加了_Init函数，用于读取皮肤参数
+//
+///////////////////////////////////////////////////////////////////
+
+#if !defined(AFX_XUSTATUSBARCTRL_H__D89CAA8C_C40B_4C84_9DE3_00599A3E0804__INCLUDED_)
+#define AFX_XUSTATUSBARCTRL_H__D89CAA8C_C40B_4C84_9DE3_00599A3E0804__INCLUDED_
+
+#if _MSC_VER > 1000
+#pragma once
+#endif // _MSC_VER > 1000
+
+#include "../skinwnd/XuBitmap.h"
+
+class CXuStatusBarCtrl : public CWindowImpl<CXuStatusBarCtrl>//, CStatusBarCtrl, CControlWinTraits>
+{
+public:
+	DECLARE_WND_SUPERCLASS(_T("MMPlusStatusBarCtrl"), GetWndClassName())
+
+	CXuStatusBarCtrl():m_iBkgndHeight(0){};
+	virtual ~CXuStatusBarCtrl(){};
+
+	BEGIN_MSG_MAP(CXuStatusBarCtrl)
+		MESSAGE_HANDLER(WM_CREATE, OnCreate)
+		MESSAGE_HANDLER(WM_PAINT, OnPaint)
+		MESSAGE_HANDLER(WM_SIZE, OnSize)
+	END_MSG_MAP()
+
+	//////////////////////////////////////////////////////////////////////////
+	//
+	//	_Init : 初始化皮肤参数，换肤时也需要重新执行一遍
+	//
+	//	参数 : 无
+	//
+	//	返回值 : 布尔值，TRUE表示成功，FALSE表示失败
+	//
+	//////////////////////////////////////////////////////////////////////////
+	BOOL _Init()
+	{
+		BOOL bRetVal = TRUE;
+		TCHAR* lptValue = new TCHAR[_MAX_PATH];
+		memset(lptValue,0,_MAX_PATH);
+
+		//图片MASK颜色值
+		m_clrMask = CSkinManager::Init()->GetColor(_T("StatusBarParams"),_T("Mask"),RGB(255,0,255));
+		//文字颜色
+		m_clrText = CSkinManager::Init()->GetColor(_T("StatusBarParams"),_T("TextColor"),RGB(0,0,0));
+		//背景图
+		CSkinManager::Init()->GetPicturePath(_T("StatusBarParams"),_T("Bkgnd"), lptValue, _MAX_PATH);
+		if(!m_bmpBackground.LoadBitmap(lptValue, m_clrMask)) bRetVal = FALSE;
+		//LOGO图片
+		CSkinManager::Init()->GetPicturePath(_T("StatusBarParams"),_T("LogoImg"), lptValue, _MAX_PATH);
+		if(!m_bmpLogo.LoadBitmap(lptValue, m_clrMask)) bRetVal = FALSE;
+		//LOGO图开始位置
+		m_iLogoX = CSkinManager::Init()->GetInt(_T("StatusBarParams"),_T("LogonX"),0);
+		m_iLogoY = CSkinManager::Init()->GetInt(_T("StatusBarParams"),_T("LogonY"),0);
+		//北京高度
+		m_iBkgndHeight = m_bmpBackground.Height();
+
+		delete[] lptValue;
+
+		return bRetVal;
+	}
+	//////////////////////////////////////////////////////////////////////////
+	//
+	//	SubclassWindow : 子类化某个控件句柄
+	//
+	//	参数 : 
+	//		hWnd - 待子类化控件的句柄
+	//
+	//	返回值 : 
+	//		布尔值，TRUE表示成功，FALSE表示失败
+	//
+	//////////////////////////////////////////////////////////////////////////
+	BOOL SubclassWindow(HWND hWnd)
+	{
+		BOOL bRet = CWindowImpl<CXuStatusBarCtrl/*, CStatusBarCtrl, CControlWinTraits*/>::SubclassWindow(hWnd);
+		//_Init();
+		return bRet;
+	}
+	//////////////////////////////////////////////////////////////////////////
+	//
+	//	OnCreate : 对系统消息WM_CREATE的响应函数
+	//
+	//	参数 : 标准
+	//
+	//	返回值 : 标准
+	//
+	//////////////////////////////////////////////////////////////////////////
+	LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+	{	
+		LRESULT lRes = DefWindowProc(uMsg, wParam, lParam);
+		_Init();
+		return lRes;
+	}
+	//////////////////////////////////////////////////////////////////////////
+	//
+	//	ChangeSkin : 换肤
+	//
+	//	参数 : 
+	//		lpctSkinName - 皮肤名称，如Default, OfficeXP，即对应的皮肤文件夹名称
+	//
+	//	返回值 : 
+	//		布尔值，TRUE表示成功，FALSE表示失败
+	//
+	//////////////////////////////////////////////////////////////////////////
+	BOOL ChangeSkin(LPCTSTR lpctSkinName)
+	{
+		CSkinManager::Init()->ChangeSkin(lpctSkinName);
+		return _Init();
+	}
+	//////////////////////////////////////////////////////////////////////////
+	//
+	//	OnSize : 对系统消息WM_SIZE的响应函数
+	//
+	//	参数 : 标准
+	//
+	//	返回值 : 标准
+	//
+	//////////////////////////////////////////////////////////////////////////
+	LRESULT OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+	{
+		if(m_iBkgndHeight == 0)
+		{
+			bHandled = FALSE;
+			return 0;
+		}
+
+		HWND hwnd = GetParent();
+		CRect rect;
+		::GetClientRect(hwnd, rect);
+		rect.top = rect.bottom - m_iBkgndHeight;
+		MoveWindow(rect);
+		bHandled = TRUE;
+
+		//bHandled = FALSE;
+		return 0;
+	}
+	//////////////////////////////////////////////////////////////////////////
+	//
+	//	OnPaint : 对系统消息WM_PAINT的响应函数
+	//
+	//	参数 : 标准
+	//
+	//	返回值 : 标准
+	//
+	//////////////////////////////////////////////////////////////////////////
+	LRESULT OnPaint(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+	{
+		//bHandled = FALSE;
+
+		DrawStatusBar();
+		bHandled = TRUE;
+ 		return 0;
+	}
+	//////////////////////////////////////////////////////////////////////////
+	//
+	//	DrawStatusBar : 绘制状态栏（背景、文字、图片等）
+	//
+	//	参数 : 无
+	//
+	//	返回值 : 无
+	//
+	//////////////////////////////////////////////////////////////////////////
+	void DrawStatusBar()
+	{
+		CPaintDC dc(m_hWnd);
+		CRect rect;
+ 		GetClientRect(rect);
+		if(m_bmpBackground.m_hBitmap != 0)
+			m_bmpBackground.ExtendDraw(&dc, rect, 100, 0);
+
+		//输出文字
+		rect.left = m_nTextStart;
+		rect.right -= 10;
+		DrawTextEx(&dc, rect, m_pszText);
+		//绘制LOGO图片
+		DrawLogo(&dc);
+	}
+	//////////////////////////////////////////////////////////////////////////
+	//
+	//	DrawTextEx : 绘制文字
+	//
+	//	参数 : 
+	//		pDC - 输出的设备DC
+	//		rc - 绘制范围
+	//		strText - 绘制的文字内容
+	//
+	//	返回值 : 
+	//		布尔值，TRUE表示成功，FALSE表示失败
+	//
+	//////////////////////////////////////////////////////////////////////////
+	BOOL DrawTextEx(CDC *pDC, CRect rc, LPCTSTR strText)
+	{
+		CRect r;
+		CString str;
+		//CRect rc;
+		if(_tcslen(strText))
+		{
+			HFONT hOldFont;
+			CFont font;
+			font.CreateFont(14,0,0,0,FW_NORMAL,FALSE,FALSE,0,ANSI_CHARSET,OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,DEFAULT_QUALITY,
+				DEFAULT_PITCH|FF_SWISS,"Arial");
+
+			hOldFont = pDC->SelectFont( font.m_hFont );
+			
+			pDC->SetTextColor(m_clrText);
+			pDC->SetBkMode(TRANSPARENT);
+			pDC->DrawText( strText, _tcslen(strText), rc, DT_SINGLELINE | DT_VCENTER | DT_RIGHT);
+			pDC->SelectFont(hOldFont);
+
+			font.DeleteObject();
+		}
+		
+		return TRUE;
+	}
+	//////////////////////////////////////////////////////////////////////////
+	//
+	//	SetText : 设置文字内容
+	//
+	//	参数 : 
+	//		lpszText - 绘制的文字内容
+	//		nStart - 左偏移位置
+	//
+	//	返回值 : 
+	//		布尔值，TRUE表示成功，FALSE表示失败
+	//
+	//////////////////////////////////////////////////////////////////////////
+	BOOL SetText(LPCTSTR lpszText, int nStart=90)
+	{
+		m_pszText = lpszText;
+		m_nTextStart = nStart;
+		
+		return TRUE;
+	}
+	//////////////////////////////////////////////////////////////////////////
+	//
+	//	DrawLogo : 绘制LOGO图片
+	//
+	//	参数 : 
+	//		pDC - 输出的设备DC
+	//
+	//	返回值 : 
+	//		布尔值，TRUE表示成功，FALSE表示失败
+	//
+	//////////////////////////////////////////////////////////////////////////
+
+	BOOL DrawLogo(CDC* pDC)
+	{
+		if(m_bmpLogo.m_hBitmap != 0)
+			m_bmpLogo.Draw(pDC, m_iLogoX, m_iLogoY, 
+			CRect(0,0,m_bmpLogo.Width(),m_bmpLogo.Height()), m_clrMask, TRUE);
+
+		return TRUE;
+	}
+
+protected:
+	CXuBitmap m_bmpBackground;	//背景图片
+	CXuBitmap m_bmpLogo;		//LOGO图片
+	int m_iBkgndHeight;			//背景高度
+	int m_iLogoX, m_iLogoY;		//LOGO的绘制开始坐标（左上角）
+	int m_nTextStart;			//绘制文字的左偏移坐标（X）
+	COLORREF m_clrText;			//文字颜色
+	COLORREF m_clrMask;			//图片遮罩颜色
+	CString m_pszText;			//文字内容
+};
+
+#endif // !defined(AFX_XUSTATUSBARCTRL_H__D89CAA8C_C40B_4C84_9DE3_00599A3E0804__INCLUDED_)

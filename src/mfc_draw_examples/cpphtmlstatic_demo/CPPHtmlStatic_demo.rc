@@ -1,0 +1,517 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Russian resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_RUS)
+#ifdef _WIN32
+LANGUAGE LANG_RUSSIAN, SUBLANG_DEFAULT
+#pragma code_page(1251)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\CPPHtmlStatic_demo.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\CPPHtmlStatic_demo.ico"
+IDI_MAIL                ICON    DISCARDABLE     "res\\Mail.ico"
+IDI_HELP                ICON    DISCARDABLE     "res\\help.ico"
+IDI_FROG                ICON    DISCARDABLE     "res\\frog.ico"
+IDI_STOP                ICON    DISCARDABLE     "res\\2.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PAGE_COLORS DIALOG DISCARDABLE  0, 0, 450, 100
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Colors"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Background Color Themes",IDC_STATIC,7,7,118,86
+    COMBOBOX        IDC_THEME_BK_COLOR,43,18,74,149,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Theme :",IDC_STATIC,13,21,27,8
+    LTEXT           "Colors",IDC_STATIC,15,33,20,8,WS_DISABLED
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,40,38,79,1
+    LTEXT           "Start :",IDC_STATIC,20,46,20,8
+    PUSHBUTTON      "Start",IDC_START_BK_COLOR,44,43,72,14
+    LTEXT           "Mid :",IDC_STATIC,24,61,16,8
+    PUSHBUTTON      "Mid",IDC_MID_BK_COLOR,44,58,72,14
+    LTEXT           "End :",IDC_STATIC,22,76,18,8
+    PUSHBUTTON      "End",IDC_END_BK_COLOR,44,73,72,14
+    GROUPBOX        "Background Effect",IDC_STATIC,130,7,118,56
+    COMBOBOX        IDC_EFFECT_BK,166,19,74,149,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Type :",IDC_STATIC,136,22,21,8
+    LTEXT           "Parameters",IDC_STATIC,136,34,36,8,WS_DISABLED
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,175,39,62,1
+    LTEXT           "Granularity :",IDC_STATIC,138,47,38,8
+    EDITTEXT        IDC_EDIT1,181,44,57,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "",IDC_TEXT_COLOR,171,73,76,14
+    LTEXT           "Text color :",IDC_STATIC,132,76,36,8
+END
+
+IDD_PAGE_BORDER DIALOG DISCARDABLE  0, 0, 450, 100
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Border"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Type of Border",IDC_STATIC,7,7,94,86
+    CONTROL         "None",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON | WS_GROUP,
+                    14,22,33,10
+    CONTROL         "Rectangle",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,13,34,
+                    49,10
+    CONTROL         "Rounded Rectangle",IDC_RADIO3,"Button",
+                    BS_AUTORADIOBUTTON,13,46,80,10
+    LTEXT           "Color :",IDC_STATIC,105,9,21,8
+    PUSHBUTTON      "",IDC_BUTTON1,131,7,59,14
+    GROUPBOX        "Sizes",IDC_STATIC,106,28,87,65
+    LTEXT           "Width :",IDC_STATIC,112,47,24,8
+    LTEXT           "Height :",IDC_STATIC,110,63,26,8
+    EDITTEXT        IDC_EDIT1,140,44,44,12,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT2,140,60,44,12,ES_AUTOHSCROLL | ES_NUMBER
+END
+
+IDD_PAGE_ALIGN DIALOG DISCARDABLE  0, 0, 450, 100
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Align"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Horizontal",IDC_STATIC,7,7,94,72
+    CONTROL         "Default",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,15,23,39,10
+    CONTROL         "Left",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,15,36,28,
+                    10
+    CONTROL         "Right",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,15,62,33,
+                    10
+    CONTROL         "Center",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,15,49,37,
+                    10
+    GROUPBOX        "Vertical",IDC_STATIC,105,7,94,72
+    CONTROL         "Default",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP,113,23,39,10
+    CONTROL         "Top",IDC_RADIO6,"Button",BS_AUTORADIOBUTTON,113,36,29,
+                    10
+    CONTROL         "Bottom",IDC_RADIO7,"Button",BS_AUTORADIOBUTTON,113,62,
+                    38,10
+    CONTROL         "VCenter",IDC_RADIO8,"Button",BS_AUTORADIOBUTTON,113,49,
+                    41,10
+    CONTROL         "Word Wrapping",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,83,66,10
+END
+
+IDD_PAGE_MISC DIALOG DISCARDABLE  0, 0, 450, 100
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Miscellaneous"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Enable Window",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,7,66,10
+    PUSHBUTTON      "Toggle Sizes",IDC_BUTTON1,7,21,66,14
+END
+
+IDD_PAGE_IMAGES DIALOG DISCARDABLE  0, 0, 450, 99
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Images"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Width",IDC_STATIC,7,7,84,85
+    CONTROL         "Fit",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON | WS_GROUP,
+                    13,20,23,10
+    CONTROL         "Percent",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,13,33,
+                    41,10
+    EDITTEXT        IDC_EDIT1,55,31,29,14,ES_AUTOHSCROLL | ES_NUMBER
+    GROUPBOX        "Height",IDC_STATIC,96,7,84,85
+    CONTROL         "Fit",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON | WS_GROUP,
+                    102,20,23,10
+    CONTROL         "Percent",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,102,33,
+                    41,10
+    EDITTEXT        IDC_EDIT2,144,31,29,14,ES_AUTOHSCROLL | ES_NUMBER
+END
+
+IDD_PAGE_STYLES DIALOG DISCARDABLE  0, 0, 450, 99
+STYLE WS_CHILD | WS_CAPTION
+CAPTION "Styles"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Standard",IDC_STATIC,7,7,114,85
+    CONTROL         "Border",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,35,37,10
+    CONTROL         "Client edge",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,48,51,10
+    CONTROL         "Static edge",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,61,52,10
+    CONTROL         "Modal frame",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,74,55,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_PAGE_COLORS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 443
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 93
+    END
+
+    IDD_PAGE_BORDER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 443
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 93
+    END
+
+    IDD_PAGE_ALIGN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 443
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 93
+    END
+
+    IDD_PAGE_MISC, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 443
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 93
+    END
+
+    IDD_PAGE_IMAGES, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 443
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 92
+    END
+
+    IDD_PAGE_STYLES, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 443
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 92
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_SMILES              BITMAP  DISCARDABLE     "res\\smiles.bmp"
+IDB_GLOBE               BITMAP  DISCARDABLE     "res\\globe.bmp"
+IDB_DRAGON              BITMAP  DISCARDABLE     "res\\Dragon.bmp"
+IDB_CODEPROJECT         BITMAP  DISCARDABLE     "res\\codeproject.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_PAGE_COLORS DLGINIT
+BEGIN
+    IDC_THEME_BK_COLOR, 0x403, 9, 0
+0x7453, 0x6e61, 0x6164, 0x6472, "\000" 
+    IDC_THEME_BK_COLOR, 0x403, 7, 0
+0x6953, 0x766c, 0x7265, "\000" 
+    IDC_THEME_BK_COLOR, 0x403, 7, 0
+0x7542, 0x7474, 0x6e6f, "\000" 
+    IDC_THEME_BK_COLOR, 0x403, 7, 0
+0x7845, 0x746f, 0x6369, "\000" 
+    IDC_THEME_BK_COLOR, 0x403, 5, 0
+0x7141, 0x6175, "\000" 
+    IDC_THEME_BK_COLOR, 0x403, 7, 0
+0x6843, 0x6f72, 0x656d, "\000" 
+    IDC_THEME_BK_COLOR, 0x403, 5, 0
+0x6f47, 0x646c, "\000" 
+    IDC_THEME_BK_COLOR, 0x403, 6, 0
+0x7553, 0x6e6e, 0x0079, 
+    IDC_THEME_BK_COLOR, 0x403, 7, 0
+0x754a, 0x676e, 0x656c, "\000" 
+    IDC_THEME_BK_COLOR, 0x403, 4, 0
+0x6b53, 0x0079, 
+    IDC_THEME_BK_COLOR, 0x403, 5, 0
+0x6946, 0x6572, "\000" 
+    IDC_EFFECT_BK, 0x403, 6, 0
+0x4f53, 0x494c, 0x0044, 
+    IDC_EFFECT_BK, 0x403, 10, 0
+0x4748, 0x4152, 0x4944, 0x4e45, 0x0054, 
+    IDC_EFFECT_BK, 0x403, 10, 0
+0x4756, 0x4152, 0x4944, 0x4e45, 0x0054, 
+    IDC_EFFECT_BK, 0x403, 11, 0
+0x4348, 0x5247, 0x4441, 0x4549, 0x544e, "\000" 
+    IDC_EFFECT_BK, 0x403, 11, 0
+0x5648, 0x5247, 0x4441, 0x4549, 0x544e, "\000" 
+    IDC_EFFECT_BK, 0x403, 11, 0
+0x4833, 0x5247, 0x4441, 0x4549, 0x544e, "\000" 
+    IDC_EFFECT_BK, 0x403, 11, 0
+0x5633, 0x5247, 0x4441, 0x4549, 0x544e, "\000" 
+    IDC_EFFECT_BK, 0x403, 6, 0
+0x4f4e, 0x5349, 0x0045, 
+    IDC_EFFECT_BK, 0x403, 10, 0
+0x4944, 0x4741, 0x4853, 0x4441, 0x0045, 
+    IDC_EFFECT_BK, 0x403, 7, 0
+0x5348, 0x4148, 0x4544, "\000" 
+    IDC_EFFECT_BK, 0x403, 7, 0
+0x5356, 0x4148, 0x4544, "\000" 
+    IDC_EFFECT_BK, 0x403, 6, 0
+0x4248, 0x4d55, 0x0050, 
+    IDC_EFFECT_BK, 0x403, 6, 0
+0x4256, 0x4d55, 0x0050, 
+    IDC_EFFECT_BK, 0x403, 9, 0
+0x4f53, 0x5446, 0x5542, 0x504d, "\000" 
+    IDC_EFFECT_BK, 0x403, 9, 0
+0x4148, 0x4452, 0x5542, 0x504d, "\000" 
+    IDC_EFFECT_BK, 0x403, 6, 0
+0x454d, 0x4154, 0x004c, 
+    0
+END
+
+#endif    // Russian resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About CPPHtmlStatic_demo"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "CPPHtmlStatic_demo Version 1.0",IDC_STATIC,40,10,119,8,
+                    SS_NOPREFIX
+    LTEXT           "Copyright (C) 2004",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+END
+
+IDD_CPPHTMLSTATIC_DEMO_DIALOG DIALOGEX 0, 0, 472, 278
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "CPPHtmlStatic_demo"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "Icon",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON | WS_GROUP,
+                    211,20,30,10
+    CONTROL         "Bitmap",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,211,31,
+                    37,10
+    CONTROL         "Image list",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,211,
+                    42,45,10
+    CONTROL         "Animation",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,211,
+                    53,47,10
+    CONTROL         "Hyperlink",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON,211,
+                    64,45,10
+    CONTROL         "Text",IDC_RADIO6,"Button",BS_AUTORADIOBUTTON,211,75,30,
+                    10
+    CONTROL         "Custom Text",IDC_RADIO7,"Button",BS_AUTORADIOBUTTON,211,
+                    86,55,10
+    LTEXT           "Demo",IDC_STATIC_DEMO,7,7,192,88
+    LTEXT           "Properties",IDC_STATIC1,7,159,458,112,NOT WS_VISIBLE | 
+                    WS_BORDER | NOT WS_GROUP
+    GROUPBOX        "Type of the Static",IDC_STATIC,205,7,260,147
+    EDITTEXT        IDC_TEXT,214,99,243,50,ES_MULTILINE | WS_VSCROLL
+    GROUPBOX        "Parameters",IDC_STATIC,268,17,189,79
+    LTEXT           "ID :",IDC_ID_LABEL,275,34,12,8
+    COMBOBOX        IDC_COMBO_ID,291,33,81,86,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "FrameRate :",IDC_FRAMERATE_LABEL,275,51,40,8
+    EDITTEXT        IDC_EDIT_FRAMERATE,317,49,31,12,ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    LTEXT           "Link Caption :",IDC_LINK_LABEL,275,36,44,8
+    EDITTEXT        IDC_EDIT_LINK,322,33,129,12,ES_AUTOHSCROLL
+    LTEXT           "URL :",IDC_URL_LABEL,275,52,20,8
+    EDITTEXT        IDC_EDIT_URL,322,49,129,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Apply",IDC_APPLY_BTN,401,76,50,14
+    CONTROL         "Mask",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    275,67,33,10
+    PUSHBUTTON      "",IDC_BUTTON1,309,65,40,14
+    LTEXT           "Info",IDC_STATIC_INFO,7,99,193,54
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_CPPHTMLSTATIC_DEMO_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 465
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 271
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "CPPHtmlStatic_demo MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "CPPHtmlStatic_demo\0"
+            VALUE "LegalCopyright", "Copyright (C) 2004\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "CPPHtmlStatic_demo.EXE\0"
+            VALUE "ProductName", "CPPHtmlStatic_demo Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About CPPHtmlStatic_demo..."
+    IDS_EXAMPLE1            "<table border=1><tr><td><icon idres=131></td><td width=200 align=center valign=vcenter><h2>HELLO</h2></td></tr></table>"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\CPPHtmlStatic_demo.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
