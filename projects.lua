@@ -165,3 +165,40 @@ workspace(path.getname(os.realpath(".")))
             
         end
         
+
+    group "tetris_examples"
+        matches = os.matchdirs("src/tetris_examples/*")
+        for i = #matches, 1, -1 do
+            --p.w(path.getname(matches[i]))  
+            local project_name = path.getname(matches[i])
+            
+            create_wtl_project(project_name, "src/tetris_examples")
+            
+            
+        end
+
+
+
+    group "alphablending_examples"
+        matches = os.matchdirs("src/alphablending_examples/*")
+        for i = #matches, 1, -1 do
+            --p.w(path.getname(matches[i]))  
+            local project_name = path.getname(matches[i])
+            
+            create_wtl_project(project_name, "src/alphablending_examples")
+            
+            
+        end
+
+    group "game_examples"
+        matches = os.matchdirs("src/game_examples/*")
+        for i = #matches, 1, -1 do
+            --p.w(path.getname(matches[i]))  
+            local project_name = path.getname(matches[i])
+            
+            create_wtl_project(project_name, "src/game_examples")
+            
+            
+        end
+
+        
