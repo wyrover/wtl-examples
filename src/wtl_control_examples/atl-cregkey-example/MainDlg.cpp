@@ -6,6 +6,7 @@
 #include "resource.h"
 
 #include "MainDlg.h"
+#include <atlcoll.h>
 #include <tracetool/tracetool.h>
 
 LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
@@ -79,8 +80,8 @@ LRESULT CMainDlg::OnSize(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled
 }
 LRESULT CMainDlg::OnBnClickedButton1(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
+    CAtlMap<CString, CString> map_data;
     
-
     CRegKey reg;
 
     do 
@@ -94,8 +95,10 @@ LRESULT CMainDlg::OnBnClickedButton1(WORD wNotifyCode, WORD wID, HWND hWndCtl, B
         TCHAR buff[256];
         DWORD len = _countof(buff);
         for (int i = 0; ERROR_SUCCESS == reg.EnumKey(i, buff, &len); i++, len = _countof(buff)) {
-            if (StrStrI(buff, TEXT(".inf")) > 0)
-                TRACE_SEND_W(buff);
+            if (StrStrI(buff, TEXT(".inf")) > 0) {
+                //TRACE_SEND_W(buff);
+                map_data[buff] = buff;
+            }
             //CRegKey infReg;
             //TCHAR ext[64];
             //ULONG len2 = _countof(ext);
@@ -105,6 +108,13 @@ LRESULT CMainDlg::OnBnClickedButton1(WORD wNotifyCode, WORD wID, HWND hWndCtl, B
 
 
             //}
+        }
+
+        POSITION begin_pos = map_data.GetStartPosition();
+        CAtlMap<CString, CString>::CPair* item = NULL;
+        while ((item = map_data.GetNext(begin_pos)) != NULL) {
+            TRACE_SEND_W(item->m_key);
+            TRACE_SEND_W(item->m_value);
         }
            
 
